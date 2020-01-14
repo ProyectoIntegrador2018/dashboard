@@ -16,7 +16,7 @@ Dashboard para visualizar distintos fallos en plantas de Ternium.
 
 | Name               | Email             | Role |
 | ------------------ | ----------------- | ---- |
-| Karen Alanis |  |    |
+| Karen Alanis | c.kalani@ternium.com.mx |  Lider de Proyectos  |
 
 
 ### Environment URLS
