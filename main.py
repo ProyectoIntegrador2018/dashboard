@@ -3,9 +3,15 @@ from app import app
 from flask import Flask, flash, request, redirect, render_template, after_this_request, send_file, jsonify
 from werkzeug.utils import secure_filename
 from script import parseFile
+import pymongo 
 
 #SET THE ALLOWED FILE EXTENSIONS HERE!
 ALLOWED_EXTENSIONS = set(['csv','xlsx','xlsm'])
+
+#MONGO CONFIG GOES HERE!
+myclient = pymongo.MongoClient("TEST")
+mydb = myclient["TEST"]
+mycol = mydb["TEST"]
 
 #Function to check if the file has a valid extension
 def allowed_file(filename):
@@ -50,10 +56,9 @@ def upload_file():
 		fileLocationAndName = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 		file.save(fileLocationAndName)
         #Call the script to parse the file data into a MongoDB document
-        
-		return jsonify(
-			success=True
-		)
+        responce = parseFile(fileLocationAndName)
+        x = mycol.insert_one(response[0])
+		return jsonify(response[1])
 
 if __name__ == "__main__":
     app.run()
