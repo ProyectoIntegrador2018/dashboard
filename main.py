@@ -56,7 +56,7 @@ def upload_file():
 		fileLocationAndName = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 		file.save(fileLocationAndName)
         #Call the script to parse the file data into a MongoDB document
-        responce = parseFile(fileLocationAndName)
+        response = parseFile(fileLocationAndName)
         x = mycol.insert_one(response[0])
 		return jsonify(response[1])
 
