@@ -4,14 +4,15 @@ from flask import Flask, flash, request, redirect, render_template, after_this_r
 from werkzeug.utils import secure_filename
 from script import parseFile
 import pymongo 
+from bson.json_util import dumps
 
 #SET THE ALLOWED FILE EXTENSIONS HERE!
 ALLOWED_EXTENSIONS = set(['csv','xlsx','xlsm'])
 
 #MONGO CONFIG GOES HERE!
-myclient = pymongo.MongoClient("TEST")
-mydb = myclient["TEST"]
-mycol = mydb["TEST"]
+myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+mydb = myclient["dashboard"]
+mycol = mydb["dashboard"]
 
 #Function to check if the file has a valid extension
 def allowed_file(filename):
@@ -59,6 +60,19 @@ def upload_file():
         response = parseFile(fileLocationAndName)
         x = mycol.insert_one(response[0])
         return jsonify(response[1])
+    
+#Route to get all the data
+@app.route('/all-data', methods=['GET'])
+def all_data():
+    #GEt the data from the database
+    result = dumps(mycol.find({}))
+    return result
+
+#Route to get one type of data
+@app.route('/get-data', methods=['GET'])
+def get_data():
+    #CHeck if we have the GET value
+    if 'type' not in request.
 
 if __name__ == "__main__":
     app.run()
