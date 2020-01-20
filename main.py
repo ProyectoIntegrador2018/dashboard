@@ -69,10 +69,11 @@ def all_data():
     return result
 
 #Route to get one type of data
-@app.route('/get-data', methods=['GET'])
-def get_data():
-    #CHeck if we have the GET value
-    if 'type' not in request.
+@app.route('/get-data/<type>', methods=['GET'])
+def get_data(type):
+    #Hacer query a la base de datos para obtener el historial de ese tipo de fallos
+    result = dumps(mycol.find({'type': type }))
+    return result
 
 if __name__ == "__main__":
     app.run()
