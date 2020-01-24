@@ -73,7 +73,12 @@ function getData(){
 						inspectBtn.addEventListener("click", function(){ goToFallaDetalles( this.getAttribute("id") )  });
 					}
 
-					//Aqui se populan los botones que van en el sidebar
+					//Aqui se agrega al sidebar un boton para ver todas las fallas
+					var todasFallas = '<li id="todas-fallas"><a class="waves-effect" href="#!">Todas las fallas</a></li>';
+					 sidebar.append(todasFallas);
+
+
+					//Aqui se populan los botones que van en el sidebar para mostrar fallas por rangos
 					var newElement='';
 					for (i = 0; i < amountButtons; i++) { 
 						var rangoSuperior = (i+1)*10;
@@ -87,12 +92,18 @@ function getData(){
 
 					sidebar.append(newElement);
 			    	
-			    	//Ponle un listener a todos los botones del sidebar
+			    	//Ponle un listener a todos los botones del sidebar que muestran fallas por rango
 					for (i = 0; i < amountButtons; i++) { 
 			    		var sidebarBtn = document.getElementById( ((i+1)*10) );
 						//console.log("inspectBnt: " + inspectBtn);
-						sidebarBtn.addEventListener("click", function(){ displayFallas( this.getAttribute("id") )  });
+						sidebarBtn.addEventListener("click", function(){ displayFallasRango( this.getAttribute("id") )  });
 					}
+
+					//Ponle un listener al boton del sidebar que muestra todas las fallas
+			    	var todasFallasBtn = document.getElementById("todas-fallas");
+					todasFallasBtn.addEventListener("click", function(){ displayFallasTodas( )  });
+
+
 
 
 
@@ -117,7 +128,7 @@ function getData(){
 
 	}
 
-	function displayFallas(rangoSuperior){
+	function displayFallasRango(rangoSuperior){
 
 		console.log(rangoSuperior);
 		cardContainer.html("");
@@ -129,6 +140,20 @@ function getData(){
 
 		cardContainer.append(newElement);
 
+
+	}
+
+	function displayFallasTodas(){
+
+		cardContainer.html("");
+
+		var newElement='';
+		for (i = 0; i < myJson.data.length; i++) { 
+    		//cambié de span a div 
+    		newElement += '<div class="row"><div class="col s10 m2"><div class="card"><div class="card-image"><img src="../images/placeholder.png"><span class="card-title" align="center">Falla ' + myJson.data[i].type + '</span></div><div class="card-content"><p>Cantidad de eventos: ' + myJson.data[i].events.length + "\n Eventos anormales: " + myJson.data[i].anevents + " \n Orden: " + (i+1) + '</p></div><div class="card-action"><a id="'+ myJson.data[i].type +'" href="/DetallesFalla">Inspeccionar</a></div></div></div>';
+	   	}
+
+	   	cardContainer.append(newElement);
 
 
 	}
