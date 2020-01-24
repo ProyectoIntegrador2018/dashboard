@@ -49,6 +49,8 @@ function getData(){
 					//json estatico para simular el json recibido por la api
 					myJson = JSON.parse('{"data":[{ "type": "electrico" , "events": [ {"date": "2019-01-01", "duration": 10.2, "limits": { "min": 2, "max": 10 }, "anormal": true}, {"date": "2019-01-02", "duration": 8.1, "limits": { "min": 2, "max": 10 }, "anormal": false},{"date": "2019-01-03", "duration": 11.2, "limits": { "min": 2, "max": 10 }, "anormal": true}], "nevents":3, "anevents":2 }, { "type": "mecanico" , "events": [ {"date": "2019-01-01", "duration": 10.2, "limits": { "min": 2, "max": 10 }, "anormal": true}, {"date": "2019-01-02", "duration": 8.1, "limits": { "min": 2, "max": 10 }, "anormal": false},{"date": "2019-01-03", "duration": 11.2, "limits": { "min": 2, "max": 10 }, "anormal": true}], "nevents":3, "anevents":5}, { "type": "sistemico" , "events": [ {"date": "2019-01-01", "duration": 10.2, "limits": { "min": 2, "max": 10 }, "anormal": true}, {"date": "2019-01-02", "duration": 8.1, "limits": { "min": 2, "max": 10 }, "anormal": false},{"date": "2019-01-03", "duration": 11.2, "limits": { "min": 2, "max": 10 }, "anormal": true}], "nevents":3, "anevents":1 }]}');
 
+					//Aqui se ordena el json de fallas de mayor numero de eventos anomalos a menor
+					orderFallas();
 
 					var amountButtons = Math.floor(myJson.data.length / 10);
 
@@ -65,6 +67,7 @@ function getData(){
 			    	}
 
 			    	cardContainer.append(newElement);
+
 
 			    	//Ponle un listener a todos los boton 'inspect' de cada card
 			    	for (i = 0; i < myJson.data.length; i++) { 
@@ -160,6 +163,24 @@ function getData(){
 
 
 	}
+
+
+	function orderFallas(){
+
+		for (i = 0; i < myJson.data.length; i++) { 
+			for (j = i+1; j < myJson.data.length; j++) { 
+				if (myJson.data[i].anevents < myJson.data[j].anevents){
+
+					var temp = myJson.data[i];
+					myJson.data[i] = myJson.data[j];
+					myJson.data[j] = temp;
+
+				}
+		   	}
+	   	}
+
+	}
+
 
 
 
