@@ -48,19 +48,25 @@ function getData(){
 
 					//Aqui se popula el dashboard con la informacion de la API
 
+                        var newElement='';
 						for (i = 0; i < myJson.data.length; i++) { 
 	 					 
-				    		
-				    		var newElement = '<span class="row"><div class="col s12 m3"><div class="card"><div class="card-image"><img src="../images/placeholder.png"><span class="card-title" align="center">Falla ' + myJson.data[i].type + '</span></div><div class="card-content"><p>Cantidad de eventos: ' + myJson.data[i].events.length + "\n Eventos anormales: " + myJson.data[i].anevents + '</p></div><div class="card-action"><a id="'+ myJson.data[i].type +'" href="/DetallesFalla">Inspeccionar</a></div></div></span>'
+				    		//cambié de span a div 
+				    		newElement += '<div class="row"><div class="col s12 m3"><div class="card"><div class="card-image"><img src="../images/placeholder.png"><span class="card-title" align="center">Falla ' + myJson.data[i].type + '</span></div><div class="card-content"><p>Cantidad de eventos: ' + myJson.data[i].events.length + "\n Eventos anormales: " + myJson.data[i].anevents + '</p></div><div class="card-action"><a id="'+ myJson.data[i].type +'" href="/DetallesFalla">Inspeccionar</a></div></div></div>'
 
-							cardContainer.append(newElement);
-
-							var inspectBtn = document.getElementById(myJson.data[i].type);
-							//console.log("inspectBnt: " + inspectBtn);
-							inspectBtn.addEventListener("click", function(){ goToFallaDetalles( this.getAttribute("id") )  });
 
 	
 						}
+							cardContainer.append(newElement);
+
+                        for (i = 0; i < myJson.data.length; i++) { 
+							
+                            var inspectBtn = document.getElementById(myJson.data[i].type);
+							//console.log("inspectBnt: " + inspectBtn);
+							inspectBtn.addEventListener("click", function(){ goToFallaDetalles( this.getAttribute("id") )  });
+
+						}
+
 
 			}
 
