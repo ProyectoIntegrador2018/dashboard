@@ -15,6 +15,18 @@ $(document).ready(function() {
 	getData();
 
 
+	//Inicializa el buscador de tipo de falla
+	$('#search').keypress(function(e) {
+              if (e.keyCode == '13') {
+                 e.preventDefault();
+
+                 var searched = this.value;
+                 searchType(searched);
+               }
+            });
+
+
+
 
 
 });
@@ -164,6 +176,22 @@ function getData(){
 
 	}
 
+	function displayUnaFalla(tipo){
+		
+		cardContainer.html("");
+
+		var newElement='';
+		for (i = 0; i < myJson.data.length; i++) { 
+    		//cambié de span a div 
+    		if (myJson.data[i].type == tipo)
+    			newElement += '<div class="row"><div class="col s10 m2"><div class="card"><div class="card-image"><img src="../images/placeholder.png"><span class="card-title" align="center">Falla ' + myJson.data[i].type + '</span></div><div class="card-content"><p>Cantidad de eventos: ' + myJson.data[i].events.length + "\n Eventos anormales: " + myJson.data[i].anevents + " \n Orden: " + (i+1) + '</p></div><div class="card-action"><a id="'+ myJson.data[i].type +'" href="/DetallesFalla">Inspeccionar</a></div></div></div>';
+	   	}
+
+	   	cardContainer.append(newElement);
+
+
+	}
+
 
 	function orderFallas(){
 
@@ -180,6 +208,18 @@ function getData(){
 	   	}
 
 	}
+
+
+
+	function searchType(searched){
+
+		if (searched == ""){
+			displayFallasTodas();
+		} else{
+			displayUnaFalla(searched);
+		}
+	}
+
 
 
 
