@@ -1,5 +1,7 @@
 # Monitoreo Automatico de Indicadores - Dashboard 
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/3ec02f76c2da348f9754/maintainability)](https://codeclimate.com/github/ProyectoIntegrador2018/dashboard/maintainability)
+
 Dashboard para visualizar distintos fallos en plantas de Ternium.
 
 ## Table of contents
