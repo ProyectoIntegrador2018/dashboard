@@ -10,7 +10,7 @@ from bson.json_util import dumps
 ALLOWED_EXTENSIONS = set(['csv','xlsx','xlsm'])
 
 #MONGO CONFIG GOES HERE!
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+myclient = pymongo.MongoClient('mongodb://db:27017')
 mydb = myclient["dashboard"]
 mycol = mydb["dashboard"]
 
@@ -35,6 +35,11 @@ def verifyFile(file):
 	return None
 
 #App routes
+#Hello world route
+@app.route('/', methods=['GET'])
+def hello_world():
+    return "Hola mundo"
+
 #Route to upload the files to the server
 @app.route('/upload', methods=['POST'])
 def upload_file():
