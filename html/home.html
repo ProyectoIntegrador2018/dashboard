@@ -16,8 +16,18 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 
-<!-- Script -->
+      <script>
 
+        function openDialog() {
+          document.getElementById('fileId').addEventListener('change', submitForm);
+          document.getElementById('fileId').click();
+        }
+
+        function submitForm() {
+          document.getElementById('submitId').click();
+        }
+      </script>
+    
     </head>
 
 
@@ -74,8 +84,16 @@
 
 
               </div>
-<!-- format -->
-            </div>
+                <form id="formId" class = "col s1"  action="upload" method="POST" enctype="multipart/form-data">
+                  
+                  <input type="file" id="fileId" style="display:none;" />
+                    <br>
+                  <div class="btn" id="buttonId" name="button" value="Upload" onclick="openDialog();" style="text-align: center">SUBIR ARCHIVO
+                  </div> 
+                  
+                  <input type="submit" id="submitId" style="display: none;" />
+                    
+                </form>              </div>
           </form>
         </div>
 
