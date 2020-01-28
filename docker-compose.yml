@@ -9,4 +9,4 @@ services:
       - db
 
   db:
-    image: mongo:3.6.1
+    build: ./db
