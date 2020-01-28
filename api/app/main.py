@@ -10,7 +10,7 @@ from bson.json_util import dumps
 ALLOWED_EXTENSIONS = set(['csv','xlsx','xlsm'])
 
 #MONGO CONFIG GOES HERE!
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+myclient = pymongo.MongoClient("mongodb://root:terniumroot@localhost:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false")
 mydb = myclient["dashboard"]
 mycol = mydb["dashboard"]
 
