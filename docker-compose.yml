@@ -4,9 +4,11 @@ services:
   api: 
     build: "./api"
     ports:
-      - "80:80"
+      - "8080:8080"
     links:
       - db
+    environment:
+      - PORT=8080
 
   db:
     build: ./db
