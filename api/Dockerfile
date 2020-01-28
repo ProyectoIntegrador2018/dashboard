@@ -1,4 +1,4 @@
-FROM tiangolo/uwsgi-nginx-flask:python3.6
+FROM tiangolo/meinheld-gunicorn-flask:python3.7
 
 ENV LISTEN_PORT 8080
 

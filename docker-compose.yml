@@ -7,6 +7,8 @@ services:
       - "8080:8080"
     links:
       - db
+    environment:
+      - PORT=8080
 
   db:
-    image: mongo:3.6.1
+    build: ./db
