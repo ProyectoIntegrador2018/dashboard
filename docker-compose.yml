@@ -6,16 +6,7 @@ services:
     ports:
       - "8080:8080"
     links:
-      - my_db
-  my_db:
-    build: "./db"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: terniumroot
-    ports:
-      - 27017:27017
-    volumes:
-      - mongodb_data_container:/data/db
+      - db
 
-volumes:
-  mongodb_data_container:
+  db:
+    image: mongo:3.6.1
