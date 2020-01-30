@@ -1,5 +1,7 @@
 # Monitoreo Automatico de Indicadores - Dashboard 
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/3ec02f76c2da348f9754/maintainability)](https://codeclimate.com/github/ProyectoIntegrador2018/dashboard/maintainability)
+
 Dashboard para visualizar distintos fallos en plantas de Ternium.
 
 ## Table of contents
@@ -55,4 +57,89 @@ Dashboard para visualizar distintos fallos en plantas de Ternium.
 
 ### Setup the project
 
-* TBD
+## Instrucciones de Instalación para sistemas operativos Ubuntu 18.04
+
+Se necesita instalar las siguientes herramientas
+
+### Instalar Python
+
+
+```
+$ sudo apt-get update
+$ sudo apt-get install python3
+```
+
+Verifica que se haya instalado la versión indicada en el READ.me, o una mayor con el siguiente comando:
+
+```
+$ python3 --version
+```
+
+Estos comandos instalarán pip3 automáticamente.
+
+### Instalar Flask
+
+```
+$ pip3 install Flask
+```
+
+Verifica que se haya instalado la versión indicada en el READ.me, o una mayor con el siguiente comando:
+
+```
+python3 -m flask --version
+```
+
+### Instalar MongoDB
+
+```
+$ sudo apt-get install -y mongodb-org
+```
+
+## Instrucciones de Instalación para sistemas operativos MacOS Catalina
+
+### Instalar Homebrew
+
+```
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+### Instalar Python
+
+```
+$ brew install python3
+```
+
+Verifica que se haya instalado la versión indicada en el READ.me, o una mayor con el siguiente comando:
+
+```
+$ python3 --version
+```
+
+### Instalar MongoDB
+
+En caso de que exista una versión de MongoDB más antigua a la indicada en el READ.md, ejecutar:
+
+```
+$ brew services stop mongodb
+$ brew uninstall mongodb
+$ brew tap mongodb/brew
+$ brew install mongodb-community
+$ brew services start mongodb-community
+```
+
+Si no existe ninguna versión de MongoDB, ejecutar:
+
+```
+$ brew tap mongodb/brew
+$ brew install mongodb-community
+$ brew services start mongodb-community
+```
+
+### Para ejecutar el programa
+
+```
+En la terminal, ejecutar el comando para abrir la shell de MongoDB: $ mongo 
+Ejecutar el comando que crea la base de datos o si ya está creada, la abre: $ use dashboard
+En otra terminal dentro del directorio de la aplicación, ejecutar el comando para correr el backend de la aplicación: $ python3 main.py.
+En Google Chrome, dirigirse a la dirección: localhost:5000/ 
+```
