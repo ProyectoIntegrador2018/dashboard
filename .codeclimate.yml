@@ -1,0 +1,11 @@
+version: "2"
+exclude_patterns:
+  - "venv/"
+  - "images/"
+  - "db/"
+  - "css/"
+  - "backend/lib/"
+  - "backend/bin/"
+  - "html/"
+  - "ServidorTemporal/node_modules/"
+  - "js/materialize/"

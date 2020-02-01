@@ -1,6 +1,6 @@
 # Monitoreo Automatico de Indicadores - Dashboard 
 
-## Instrucciones de Instalación para sistemas operativos Ubuntu 18.04
+### Instrucciones de Instalación para sistemas operativos Ubuntu 18.04
 
 ### Instalar Python
 
