@@ -37,7 +37,7 @@ function getData(){
 
 		$.ajax({
 
-			url: "https://jsonplaceholder.typicode.com/todos?_limit=11",
+			url: "http://sal.muchogas.com:8080/all-data",
 			cache : false,
 			type : "GET",
 			crossDomain: true,
