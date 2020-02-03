@@ -77,11 +77,11 @@
 	        						type: 'line',
 	        						data: {
 			                           // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-			                           labels: ['22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020'],
+			                           //labels: ['22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020'],
 	                           
 			                           datasets: [{
 			                           	label: 'Fallas normales',
-			                           	data: [6, 7, 3, 5, 4, 3,5,3,5,6,8,6,4,4],
+			                           	data: jsDataNormal//[6, 7, 3, 5, 4, 3,5,3,5,6,8,6,4,4],
 		                                backgroundColor:  //relleno del circutli
 			                                'rgba(0,0, 255, 1)'
 		                                ,
@@ -96,7 +96,7 @@
 		                            }, {
 
 		                            	label: 'Fallas anómalas',
-		                            	data: [9,8,2,2,1,8,2,1,9,9,8,1,2,8,9,8,1],
+		                            	data: jsDataAnormal//[9,8,2,2,1,8,2,1,9,9,8,1,2,8,9,8,1],
 		                                backgroundColor:  //relleno del circutli
 		                                'rgba(255,0, 0, 1)'
 		                                ,
@@ -125,6 +125,8 @@
 		                        	}
 	                    		});
 	        				</script>
+
+
 	        			</div>    
 
 	        		</div>    
@@ -136,9 +138,9 @@
 	        			</div>
 	        		</div>
 	        	</span>
+
         	<!--JavaScript at end of body for optimized loading-->
         	<script type="text/javascript" src="js/materialize.min.js"></script>
-
 
         	</div>
         
