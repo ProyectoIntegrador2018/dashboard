@@ -6,8 +6,8 @@ var sidebar = $("#slide-out");
 
 
 //Crea el json que se usará en la grafica
-var jsDataNormal= JSON.parse( '{[{ "x": 0, "y": 0 }]}';
-var jsDataAnormal= JSON.parse( '{[{ "x": 0, "y": 0 }]}';
+var jsDataNormal= JSON.parse(  '[{ "x": 0, "y": 0 }]');
+var jsDataAnormal= JSON.parse( '[{ "x": 0, "y": 0 }]');
 
 
 
@@ -25,11 +25,11 @@ $(document).ready(function() {
 	//Obtiene de la API la informacion que va en el dashboard
 	getData(tipoFalla);
 
-
+	tipoFalla='electrico'
 	console.log("cookie: " + tipoFalla);
-	var fallaText = document.getElementById("tipo");
+//	var fallaText = document.getElementById("tipo");
 
-	fallaText.innerHTML = tipoFalla;
+//	fallaText.innerHTML = tipoFalla;
 
 });
 
@@ -81,7 +81,7 @@ function getData(tipoFalla){
 
                 
 				
-					var amountButtons = Math.floor(myJson.data.length / 10);
+//					var amountButtons = Math.floor(myJson.data.length / 10);
 
 
 
