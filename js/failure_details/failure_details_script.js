@@ -88,7 +88,7 @@ var sidebar = $("#slide-out");
           	if(myJson.events[i].duration>MaxDur){
           		MaxDur=myJson.events[i].duration;
           	}
-          	
+
           	if (myJson.events[i].anormal) {
           		dataAdd = {
           			"x": myJson.events[i].date,
@@ -114,8 +114,8 @@ var sidebar = $("#slide-out");
           document.getElementById('totalFallas').innerHTML = 'Total fallas: ' +totalFallas;
           document.getElementById('totalAnomalias').innerHTML = 'Total anomalías: '+totalAnomalias;
           document.getElementById('promDur').innerHTML = 'Duración promedio: '+promDur;
-          document.getElementById('MaxDur').innerHTML = 'Duración maxima: '+MaxDur;
-          document.getElementById('leastDur').innerHTML = 'Duración minima: '+leastDur;
+          document.getElementById('MaxDur').innerHTML = 'Duración máxima: '+MaxDur;
+          document.getElementById('leastDur').innerHTML = 'Duración mínima: '+leastDur;
           document.getElementById('porcFallas').innerHTML = 'Porcentaje de anomalías: '+porcFallas+'%';
 
       }
