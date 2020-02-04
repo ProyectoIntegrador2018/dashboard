@@ -11,6 +11,8 @@
 
       <link type="text/css" rel="stylesheet" href="../css/general.css"  />
 
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
 
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -20,10 +22,16 @@
     <body class="content">
 
 
-        <nav class="nav"> 
-          <div class="header" > 
-            <a href="/" ><span>Dashboard de Moniterio Automatico </span></a>
 
+
+        <nav class="nav"> 
+            
+      <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+
+          <div class="header" > 
+            <a href="/" ><span>Dashboard de Monitoreo Automatico </span></a>
+
+            <img src="../images/ternium.jpg" width="155" align="right" style="padding-right:15px;">
           </div>
 
             <ul id="slide-out" class="sidenav ul">
@@ -33,32 +41,51 @@
                       <img src="../images/placeholder.png">
                     </div>
                     <a href="#user"><img class="circle" src="../images/placeholder.png"></a>
-                    <a href="#name"><span class="white-text name">Un placeholder</span></a>
-                    <a href="#email"><span class="white-text email">Otro placeholder</span></a>
+                    <a href="#name"><span class="white-text name">Ternium</span></a>
+                    <a href="#email"><span class="white-text email">Monitoreo de fallas</span></a>
                   </div>
                 </li>
-                <li><a href="#!"><i class="material-icons">cloud</i>Rangos de fallas</a></li>
+                <!--<li><a href="#!"><i class="material-icons">cloud</i>Rangos de fallas</a></li>-->
                 <!--<li><a href="#!">Second Link</a></li>-->
-                <li><div class="divider"></div></li>
+
+                <!--<li><div class="divider"></div></li>-->
+
+
                 <!--<li><a class="subheader">Subheader</a></li>-->
-                <li><a class="waves-effect" href="#!">1-10 Tipos con mas fallas</a></li>
-                <li><a class="waves-effect" href="#!">11-20 Tipos con mas fallas</a></li>
-                <li><a class="waves-effect" href="#!">21-30 Tipos con mas fallas</a></li>
-                <li><a class="waves-effect" href="#!">31-40 Tipos con mas fallas</a></li>
+                <!--<li><a class="waves-effect" href="#!">1-10 Tipos con mas fallas</a></li>-->
+
             </ul>
+
+            
         </nav>
         
+   
 
 
-      <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+<br>
+        	<div class = "container">   
+	        	<span class="row">
+	        		<div class="col s7 "> 
+	        			<div class="card"> 
+							<br>
+	        				<canvas id="myChart" width="50" height="40"></canvas>						
+	        			</div>    
+
+	        		</div>    
 
 
-      <div>
+	        		<div class="col  s4"> 
+	        			<div class="card"> 
+	        				<p> Promedio: 56 <br><br> Mediana: 112 <br><br> Promedio: 56 <br><br> Mediana: 112 <br><br> Promedio: 56 <br><br> Mediana: 112<br><br> Promedio: 56 <br><br> Mediana: 112</p>
+	        			</div>
+	        		</div>
+	        	</span>
 
-        <p align="center" style="font: 20px arial;">Aqui van los detalles del tipo de falla: <span id="tipo"></span></p>
+        	<!--JavaScript at end of body for optimized loading-->
+        	<script type="text/javascript" src="js/materialize.min.js"></script>
 
-      </div>
-
+        	</div>
+        
 
 
       <!--JavaScript at end of body for optimized loading-->
