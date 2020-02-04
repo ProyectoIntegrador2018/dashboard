@@ -35,10 +35,15 @@ def verifyFile(file):
 	return None
 
 #App routes
-#Hello world route
-@app.route('/', methods=['GET'])
-def hello_world():
-    return "Hola mundo"
+#STATIC ROUTES!
+#ROOT RUTE
+@app.route('/')
+def index_route():
+	return render_template('home.html')
+#FALLA DETAIL ROUTE
+@app.route('/DetallesFalla')
+def detail_route():
+	return render_template('failure_details.html')
 
 #Route to upload the files to the server
 @app.route('/upload', methods=['POST'])
@@ -79,6 +84,8 @@ def get_data(type):
     #Hacer query a la base de datos para obtener el historial de ese tipo de fallos
     result = dumps(mycol.find({'type': type }))
     return result
+
+#Routes to add the static pages
 
 if __name__ == "__main__":
     app.run()
