@@ -115,17 +115,6 @@ entry_3.grid(row=4)
 drop.grid(row=1, column=3)
 label_6.grid(row=0, column=3)
 
-
-root.mainloop()                                                                 #Se crea un mainloop para que el programa se ejecute constantemente, es decir, que la ventana no se cierre automaticamente
-
-NAME = OutputName + '.pdf'
-INPUT = Direc
-OUTPUT= OutputName + '.csv'
-
-
-
-
-
 if FREQ == 'Dias':
     FREQ='D'
     daily=False
@@ -134,46 +123,19 @@ if FREQ == 'Horas':
     daily=True
 print(TERM)
  
-'''
-NAME = '../media/IO-Preparacion de Equipos.pdf'
-INPUT = '../data/Informacion_TEC/IO-Preparacion de Equipos.csv'
-OUTPUT= '../media/IO-Preparacion de Equipos.csv'
-TERM = 50
-sens=.80
-flex = .5
-presition=True
-FREQ='D'
-if FREQ=='H':
-    daily=False
-else:
-    daily= True
-'''
-
-
-
 def load (INPUT,FREQ):
     
-    #Load Data of csv file
     df = pd.read_csv(INPUT)
     df = df[['Hora Inicio', 'value']].dropna()
-    #df = df[df['Subrubro'].str.contains("Fallas Mecanicas")]
     df['Hora Inicio'] = df['Hora Inicio'].str.replace('p.m.', 'PM')
     df['Hora Inicio'] = df['Hora Inicio'].str.replace('a.m.', 'AM')
     hours=df['Hora Inicio']
     df['Hora Inicio'] = pd.to_datetime(df['Hora Inicio'], format='%d/%m/%Y %I:%M:%S %p')
-    #print(hours)
     print(len(df))
-    #Convert Date to a datetime format using the to_datetime() function
-    #df['Hora Inicio'] = pd.to_datetime(df['Hora Inicio'])
-    #Set Date as the index
+
     df = df.set_index('Hora Inicio')
-    #print(df)
-    #we can use the resample() and mean() function to find the daily average price
     daily_df = df.resample(FREQ).mean()
-    #print(daily_df)
-    #Reset the index and drop any missing values from the dataset.
     d_df = daily_df.reset_index().dropna()
-    #Grafica de promedio diarios de datos 
     d_df.columns = ['ds', 'y']
     plt.title('Promedio de datos')
     plt.ylabel('Minutos de Falla')
@@ -186,9 +148,7 @@ def load (INPUT,FREQ):
 def predict_future (d_df,TERM,FREQ,sens,flex,daily):
     #Create an instance of the Prophet class
     m = Prophet(daily_seasonality = daily, yearly_seasonality = True, weekly_seasonality = True)#, interval_width=sens, changepoint_prior_scale = flex)
-                    #changepoint_prior_scale=0.01,seasonality_mode = 'multiplicative')
-    
-    #initiate our dataframe to it
+
     m.fit(d_df)
     #Create a dataframe with the dates for which we want a prediction to be made
     future = m.make_future_dataframe(periods=TERM,freq=FREQ)
@@ -200,13 +160,6 @@ def predict_future (d_df,TERM,FREQ,sens,flex,daily):
             forecast.yhat_lower[i]=0
         if forecast.yhat[i]<0:
             forecast.yhat[i]=0
-    #print(forecast.yhat_lower)
-    #see the predictions as well as the lower and upper boundaries of the uncertainty interval.
-    #forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper','fact']].tail()
-    #print(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail())
-    #plot the forecast by calling plot and passing in the forecast dataframe
-    #The black dots represent outliers and the light-blue shaded regions are the uncertainty intervals.
-    #Plot only forcastcomponents
     fig3 = m.plot(forecast)
     plt.title('Análisis de Tendencia y Predicción')
     plt.ylabel('Minutos de Falla')
@@ -224,7 +177,6 @@ def predict_future (d_df,TERM,FREQ,sens,flex,daily):
     #a= add_changepoints_to_plot(fig.gca(), m, forecast)
     return(forecast,m)
 
-#Function provides # of anomalies in historical data, as well as color array for visual plot display
 def count_anomalies (d_df,forecast):
     #Local Variable Iniciaitation
     i=0
@@ -250,7 +202,6 @@ def count_anomalies (d_df,forecast):
     #Return # of anomalys and corresponding color array
     return(anomaly, color, found_anomalies)
 
-#https://stackoverflow.com/questions/36215958/filter-with-hour-and-minutes
 def save_anomalies(found_anomalies,hours,df,INPUT,FREQ,OUTPUT):
     hours = pd.to_datetime(hours, format='%d/%m/%Y %I:%M:%S %p')
     for i in range(len(hours)):
@@ -261,10 +212,6 @@ def save_anomalies(found_anomalies,hours,df,INPUT,FREQ,OUTPUT):
         
         hours.iloc[i]=strin
 
-    #print(hours)
-
-
-
     dfObj = pd.DataFrame(found_anomalies) 
     #print(dfObj)
     total=[]
@@ -273,29 +220,18 @@ def save_anomalies(found_anomalies,hours,df,INPUT,FREQ,OUTPUT):
         is_anomaly = hours==str(found_anomalies[i])
         res = list(compress(range(len(is_anomaly )), is_anomaly ))
         total.extend(res)
-    
-    #total.sort()
-    #print(total)
-    
+
     #Load Data of csv file
     original = pd.read_csv(INPUT)
     #print(original)
    
     result = original.iloc[total].copy()
-    #result.drop(result.iloc[:, :1],inplace = True, axis = 1)
-    #df.iloc[:, 1:3], inplace = True, axis = 1
-    #result = pd.DataFrame(columns=['Hora Inicio',])
-    
-    #for i in range(len(total)):
-    #   num=total[i]
-    #    lis=original[num]
-    #    result=result.insert(lis)
+
     result = result.set_index('Hora Inicio')
     print(len(result))
     #print(result)
     result.to_csv(OUTPUT)
     
-#Crossvalidation evaluation
 def evaluate(m,TERM,FREQ):
     if FREQ=='H':
         HORIZON= str(TERM/2)+' hours'
@@ -315,11 +251,7 @@ def evaluate(m,TERM,FREQ):
     pp.savefig()
     plt.show()
 
-
-
-#Provides #of anomalys VS %Sensityvity threshold
 def sensitivity (df_p,TERM,FREQ,flex):
-    #Local Variable Inicialitation
     i=0
     percentage=np.empty(10)
     number=np.empty(10)
@@ -348,7 +280,6 @@ def sensitivity (df_p,TERM,FREQ,flex):
     #Return # of anomalies VS Sensitivity%
     return(number,percentage)
 
-#Provides Error% VS Trend Flexibility%
 def flexibility (d_df,TERM,FREQ,sens):
     #Local Variable Inicialitation
     if FREQ=='H':
@@ -363,7 +294,6 @@ def flexibility (d_df,TERM,FREQ,sens):
     i=0
     percentage=np.empty(10)
     error=np.empty(10)
-    #For %values of sensitivity wanted
     for i in range(10):
         #Sensitivity %
         percentage[i]=i/10+.1
@@ -388,7 +318,4 @@ def flexibility (d_df,TERM,FREQ,sens):
     pp.savefig()
     plt.show()
 
-    #Return # of anomalies VS Sensitivity%
     return(error,percentage)
-
-
