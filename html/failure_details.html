@@ -69,64 +69,6 @@
 	        			<div class="card"> 
 							<br>
 	        				<canvas id="myChart" width="50" height="40"></canvas>						
-	        				<script>
-	        					var siz=8; //Tamaño punto
-	        					var hover=13; //Pasas el mouse y el tamaño incrementa
-	        					var ctx = document.getElementById('myChart');
-	        					var myChart = new Chart(ctx, {
-	        						type: 'line',
-	        						data: {
-			                           // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-			                           //labels: ['22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020','22/10/2020'],
-	                           
-			                           datasets: [{
-			                           	label: 'Fallas normales',
-			                           	data: jsDataNormal,   //[6, 7, 3, 5, 4, 3,5,3,5,6,8,6,4,4],
-		                                backgroundColor:  //relleno del circutli
-			                                'rgba(0,0, 255, 1)'
-		                                ,
-		                                borderColor: [ //color de linea
-			                                'rgba(0, 0, 0, 1)'
-		                                ],
-		                                fill:false,
-		                                pointRadius: siz,
-		                                pointHoverRadius:hover,
-		                                borderWidth: 1,
-		                                showLine: false
-		                            }, {
-
-		                            	label: 'Fallas anómalas',
-		                            	data: jsDataAnormal, //[9,8,2,2,1,8,2,1,9,9,8,1,2,8,9,8,1],
-		                                backgroundColor:  //relleno del circutli
-		                                'rgba(255,0, 0, 1)'
-		                                ,
-		                                borderColor: [ //color de linea
-		                                'rgba(0, 0, 0, 1)'
-		                                ],
-		                                fill:false,
-		                                pointRadius: siz,
-		                                pointHoverRadius:hover,
-		                                //borderWidth: 1,
-		                                showLine: false,
-
-		                            }]
-			                        },
-			                        options: {
-			                        	legend : {
-			                        		display:false
-			                        	},
-			                        	scales: {
-			                        		yAxes: [{
-			                        			ticks: {
-			                        				beginAtZero: true
-			                        			}
-			                        		}]
-			                        	}
-		                        	}
-	                    		});
-	        				</script>
-
-
 	        			</div>    
 
 	        		</div>    

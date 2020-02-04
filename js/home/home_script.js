@@ -1,6 +1,6 @@
 
 var myJson;
-var cardContainer = $("#card-container");
+var s = $("#card-container");
 var sidebar = $("#slide-out");
 
 
