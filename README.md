@@ -2,7 +2,7 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/3ec02f76c2da348f9754/maintainability)](https://codeclimate.com/github/ProyectoIntegrador2018/dashboard/maintainability)
 
-Dashboard para visualizar distintos fallos en plantas de Ternium.
+Dashboard para visualizar distintos tipos de fallos en plantas de Ternium. Genera gráficas con detección de anomalías por tipo de falla.
 
 ## Table of contents
 
@@ -21,10 +21,10 @@ Dashboard para visualizar distintos fallos en plantas de Ternium.
 | Karen Alanis | c.kalani@ternium.com.mx |  Lider de Proyectos  |
 
 
-### Environment URLS
+### Dashboard URL 
 
-* **Production** - [TBD](TBD)
-* **Development** - [TBD](TBD)
+http://sal.muchogas.com:8080
+
 
 ### !UXperts
 
@@ -38,8 +38,7 @@ Dashboard para visualizar distintos fallos en plantas de Ternium.
 ### Management tools
 
 * [Github repo](https://github.com/ProyectoIntegrador2018/dashboard)
-* [Backlog](https://github.com/ProyectoIntegrador2018/dashboard/issues)
-* [Heroku](https://crowdfront-staging.herokuapp.com/)
+* [Backlog](https://github.com/ProyectoIntegrador2018/dashboard/projects/1)
 * [Documentation](https://drive.com)
 
 ## Stack Tecnologico
@@ -50,7 +49,7 @@ Dashboard para visualizar distintos fallos en plantas de Ternium.
 | Flask | 1.1.1 | 
 | ChartJS | 2.9.3 | 
 | MongoDB | 4.2.2 | 
-| Bootstrap | 3.3 | 
+| Materialize | 1.0.0 | 
 | JQuery | 3.4.1 | 
 
 ## Development
