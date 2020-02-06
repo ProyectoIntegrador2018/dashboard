@@ -57,89 +57,72 @@ Dashboard para visualizar distintos fallos en plantas de Ternium.
 
 ### Setup the project
 
-## Instrucciones de Instalación para sistemas operativos Ubuntu 18.04
+### Instrucciones de Instalación para sistemas operativos Ubuntu 18.04 o Debian 9 +
 
-Se necesita instalar las siguientes herramientas
-
-### Instalar Python
+### Eliminar viejas versiones de docker
 
 
 ```
-$ sudo apt-get update
-$ sudo apt-get install python3
+$ sudo apt-get remove docker docker-engine docker.io containerd runc
 ```
 
-Verifica que se haya instalado la versión indicada en el READ.me, o una mayor con el siguiente comando:
+### Instalar Dependencias de Docker
 
 ```
-$ python3 --version
-```
-
-Estos comandos instalarán pip3 automáticamente.
-
-### Instalar Flask
-
-```
-$ pip3 install Flask
-```
-
-Verifica que se haya instalado la versión indicada en el READ.me, o una mayor con el siguiente comando:
+$ sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
 
 ```
-python3 -m flask --version
+
+### Agregar llave GPG del repositorio de docker
+```
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
-### Instalar MongoDB
+### Verificar el fingerprint
 
 ```
-$ sudo apt-get install -y mongodb-org
-```
-
-## Instrucciones de Instalación para sistemas operativos MacOS Catalina
-
-### Instalar Homebrew
-
-```
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-### Instalar Python
+$ sudo apt-key fingerprint 0EBFCD88
+    
+pub   rsa4096 2017-02-22 [SCEA]
+      9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
+uid           [ unknown] Docker Release (CE deb) <docker@docker.com>
+sub   rsa4096 2017-02-22 [S]
 
 ```
-$ brew install python3
-```
 
-Verifica que se haya instalado la versión indicada en el READ.me, o una mayor con el siguiente comando:
+### Agregar el repositorio
 
 ```
-$ python3 --version
+$ sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
 ```
 
-### Instalar MongoDB
-
-En caso de que exista una versión de MongoDB más antigua a la indicada en el READ.md, ejecutar:
+### Instalar el engine de Docker
 
 ```
-$ brew services stop mongodb
-$ brew uninstall mongodb
-$ brew tap mongodb/brew
-$ brew install mongodb-community
-$ brew services start mongodb-community
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose
 ```
 
-Si no existe ninguna versión de MongoDB, ejecutar:
+### Consutrir los contenedores 
+se tiene que estar dentro del directorio raiz del repositorio
 
 ```
-$ brew tap mongodb/brew
-$ brew install mongodb-community
-$ brew services start mongodb-community
+$ sudo docker-compose build
+```
+Podra tardar un tiempo ...
+
+### Levantar los contenedores
+
+```
+$ sudo docker-compose up
 ```
 
-### Para ejecutar el programa
+En Google Chrome, dirigirse a la dirección: localhost:8080
 
-```
-En la terminal, ejecutar el comando para abrir la shell de MongoDB: $ mongo 
-Ejecutar el comando que crea la base de datos o si ya está creada, la abre: $ use dashboard
-En otra terminal dentro del directorio de la aplicación, ejecutar el comando para correr el backend de la aplicación: $ python3 main.py.
-En Google Chrome, dirigirse a la dirección: localhost:5000/ 
-```
