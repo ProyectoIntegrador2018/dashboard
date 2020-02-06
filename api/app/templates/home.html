@@ -8,11 +8,11 @@
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="../css/materialize/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize/materialize.min.css') }}"  media="screen,projection"/>
 
-      <link type="text/css" rel="stylesheet" href="../css/home/home.css"  />
+      <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/home/home.css') }}"  />
 
-      <link type="text/css" rel="stylesheet" href="../css/general.css"  />
+      <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/general.css') }}"  />
 
 
       <!--Let browser know website is optimized for mobile-->
@@ -44,16 +44,16 @@
           <div class="header" > 
             <a href="/" ><span>Dashboard de Monitoreo Automatico </span></a>
 
-            <img src="../images/ternium.jpg" width="155" align="right" style="padding-right:15px;">
+            <img src="{{ url_for('static', filename='images/ternium.jpg') }}" width="155" align="right" style="padding-right:15px;">
           </div>
 
             <ul id="slide-out" class="sidenav ul">
                 <li>
                   <div class="user-view">
                     <div class="background">
-                      <img src="../images/placeholder.png">
+                      <img src="{{ url_for('static', filename='images/placeholder.png') }}">
                     </div>
-                    <a href="#user"><img class="circle" src="../images/placeholder.png"></a>
+                    <a href="#user"><img class="circle" src="{{ url_for('static', filename='images/placeholder.png') }}"></a>
                     <a href="#name"><span class="white-text name">Ternium</span></a>
                     <a href="#email"><span class="white-text email">Monitoreo de fallas</span></a>
                   </div>
@@ -203,9 +203,9 @@
 
       <!--JavaScript at end of body for optimized loading-->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <script type="text/javascript" src="../js/materialize/materialize.min.js"></script>
-      <script type="text/javascript" src="../js/general.js"></script>
-      <script type="text/javascript" src="../js/home/home_script.js"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/materialize/materialize.min.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/general.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/home/home_script.js') }}"></script>
 
       
     </body>
