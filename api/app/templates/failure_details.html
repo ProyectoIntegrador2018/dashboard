@@ -7,11 +7,11 @@
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="../css/materialize/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize/materialize.min.css') }}"  media="screen,projection"/>
 
-      <link type="text/css" rel="stylesheet" href="../css/failure_details/failure_details.css"  />
+      <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/failure_details/failure_details.css') }}"  />
 
-      <link type="text/css" rel="stylesheet" href="../css/general.css"  />
+      <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/general.css') }}"  />
 
       <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
@@ -33,7 +33,7 @@
           <div class="header" > 
             <a href="/" ><span>Dashboard de Monitoreo Automatico </span></a>
 
-            <img src="../images/ternium.jpg" width="155" align="right" style="padding-right:15px;">
+            <img src="{{ url_for('static', filename='images/ternium.jpg') }}" width="155" align="right" style="padding-right:15px;">
           </div>
 
             
@@ -71,7 +71,7 @@
 	        	</span>
 
         	<!--JavaScript at end of body for optimized loading-->
-        	<script type="text/javascript" src="js/materialize.min.js"></script>
+
 
         	</div>
         
@@ -79,9 +79,9 @@
 
       <!--JavaScript at end of body for optimized loading-->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <script type="text/javascript" src="../js/materialize/materialize.min.js"></script>
-      <script type="text/javascript" src="../js/general.js"></script>
-      <script type="text/javascript" src="../js/failure_details/failure_details_script.js"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/materialize/materialize.min.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/general.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/failure_details/failure_details_script.js') }}"></script>
 
       
     </body>
