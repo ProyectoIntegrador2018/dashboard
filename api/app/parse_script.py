@@ -30,6 +30,20 @@ def fit_predict_model(dataframe, interval_width = 0.99, changepoint_range = 0.8)
 	return forecast
     
 
+def filtering(df):
+	forecast = fit_predict_model(df)
+
+	for x in range(df['Variable'].unique().size): #For entre una lista de valores unicos en la col 'Variable'
+		tipoDato = df['Variable'].unique()[x] #Pone el valor en tipoDato
+		dfTemp = df[df['Variable'] == tipoDato] #Filtra el df por tipoDato
+
+		dfTemp = dfTemp[['Hora Inicio','value']] #hace que dftemp tenga solo 2 columnas
+		dfTemp.rename(columns={"Hora Inicio": "ds", "value": "y"},inplace = True)
+		dfFore = fit_predict_model(dfTemp) #Devuelve df de forecast
+		dfFore = dfFore[['ds','anomaly']]
+
+
+
 def parse():
 
 	xls = pd.read_excel("archivo.xlsm")
