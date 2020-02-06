@@ -1,11 +1,7 @@
 import time
 import pandas as pd
 from fbprophet import Prophet
-from fbprophet.diagnostics import cross_validation, performance_metrics
-from fbprophet.plot import plot_cross_validation_metric
-from matplotlib.backends.backend_pdf import PdfPages
-from fbprophet.plot import plot_plotly
-
+from dateutil.easter import easter
 
 
 def fit_predict_model(dataframe, interval_width = 0.99, changepoint_range = 0.8):
@@ -31,17 +27,18 @@ def parse():
 	hours = xls['Hora Inicio']
 	xls['Hora Inicio'] = pd.to_datetime(xls['Hora Inicio'], format='%d/%m/%Y %I:%M:%S %p')
 
-	df = xls['Hora Inicio','value']
+	# xls= xls.set_index('Hora Inicio')
+
+	df = xls[['Hora Inicio','value']]
+	df.rename(columns={"Hora Inicio": "ds", "value": "y"},inplace = True)
 
 	forecast = fit_predict_model(df)
-#	xls= xls.set_index('Hora Inicio')
-	g
 
+	print(df)
+	print(forecast)
 
-	for row in range(xls.shape[0]):
-		print(xls)
-
-
+	# for row in range(xls.shape[0]):
+	# 	print(row)
 
 		
 
