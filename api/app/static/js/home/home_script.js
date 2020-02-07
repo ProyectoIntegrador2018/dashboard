@@ -41,7 +41,7 @@ function getData(){
 
 		$.ajax({
 
-			url: "http://sal.muchogas.com:8080/all-data",
+			url: "http://localhost:8080/all-data",
 			cache : false,
 			type : "GET",
 			crossDomain: true,
@@ -58,7 +58,7 @@ function getData(){
 				console.log("Data that was received from the server: " + dataReceived);
 
 					
-					myJson = dataReceived;
+                	myJson = dataReceived;
                 
 					//Aqui se ordena el json de fallas de mayor numero de eventos anomalos a menor
 					orderFallas();
@@ -272,7 +272,7 @@ function getData(){
 
 
 	$.ajax({
-	    url: 'http://sal.muchogas.com:8080/upload',
+	    url: 'http://localhost:8080/upload',
 	    data: data,
 	    cache: false,
 	    contentType: false,

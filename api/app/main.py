@@ -52,7 +52,7 @@ def upload_file():
     response = parseFile()
     x = mycol.delete_many({})
     x = mycol.insert_many(response)
-    return jsonify(response)
+    return jsonify({'success':'true'})
 
 #Rute to populate the DB
 @app.route('/populate', methods=['GET'])
