@@ -49,7 +49,6 @@ def filtering(df):
 		final.append({tipoDato:dfFinal})
 	return final
 
-
 def parse():
 
 	xls = pd.read_excel("archivo.xlsm")

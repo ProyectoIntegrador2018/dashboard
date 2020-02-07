@@ -88,4 +88,4 @@ def get_data(type):
 #Routes to add the static pages
 
 if __name__ == "__main__":
-    app.run()
+    app.run(use_reloader=True, threaded=True)
