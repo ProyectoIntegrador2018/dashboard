@@ -1,5 +1,6 @@
 import time
 import pandas as pd
+import json
 from fbprophet import Prophet
 from dateutil.easter import easter
 
@@ -46,12 +47,12 @@ def filtering(df):
 
 		dfFinal = dfBase.join(dfFore.set_index('ds'), on='ds')
 		dfFinal.rename(columns={"ds": "date", "y": "duration", "anomaly":"anormal"},inplace = True)
-		final.append({tipoDato:dfFinal})
+		final.append((tipoDato,dfFinal))
 	return final
 
-def parse():
+def parseFile(file_url):
 
-	xls = pd.read_excel("archivo.xlsm")
+	xls = pd.read_excel(file_url)
 	xls = xls.dropna()
 	
 	xls['Hora Inicio'] = xls['Hora Inicio'].str.replace('p.m.', 'PM')
@@ -60,8 +61,29 @@ def parse():
 	xls['Hora Inicio'] = pd.to_datetime(xls['Hora Inicio'], format='%d/%m/%Y %I:%M:%S %p')
 	final = filtering(xls)
 
-	print(final)
-		
+
+	data = []
+	for tup_tipo in final:
+		tipo = tup_tipo[0]
+		df = tup_tipo[1]
+		events = []
+		count_anormal = 0
+		for row in df.iterrows():
+			date = (row[1]['date']).strftime("%Y-%m-%d")
+			info = {"date":date,'duration':row[1]['duration'],'anormal':row[1]['anormal']}
+			if row[1]['anormal'] == 1:
+				count_anormal = count_anormal + 1
+			events.append(info)
+		dict_tipo = {'type':tipo, 'events':events, 'anevents':count_anormal}
+		data.append(dict_tipo)
+
+	JSON = {'data':data}
+	# with open('data.json', 'w') as outfile:
+	# 	json.dump(JSON, outfile)
+
+	return json.dumps(JSON)
+	
+	
 
 if __name__ == '__main__':
-	parse()
+	parseFile("archivo.xlsm")
