@@ -27,8 +27,27 @@ def fit_predict_model(dataframe, interval_width = 0.99, changepoint_range = 0.8)
 	forecast = m.predict(dataframe)
 	forecast['fact'] = dataframe['y'].reset_index(drop = True)
 
-	return forecast
-    
+	anomalies = detect_anomalies(forecast)
+	return anomalies
+
+def filtering(df):
+	#dfTemp dataframe con tipo de dato con infor final
+	#dfFore usado para obtener anomalías 
+	final = []
+	df.rename(columns={"Hora Inicio": "ds", "value": "y"},inplace = True)
+	for x in range(df['Variable'].unique().size): #For entre una lista de valores unicos en la col 'Variable'
+		tipoDato = df['Variable'].unique()[x] #Pone el valor en tipoDato
+		dfTemp = df[df['Variable'] == tipoDato] #Filtra el df por tipoDato
+
+		dfBase = dfTemp[['ds','y']] #hace que dfFore tenga solo 2 columnas
+		# dfBase.rename(columns={"Hora Inicio": "ds", "value": "y"},inplace = True)
+		dfFore = fit_predict_model(dfBase) #Devuelve df de forecast
+		dfFore = dfFore[['ds','anomaly']]
+
+		dfFinal = dfBase.join(dfFore.set_index('ds'), on='ds')
+		dfFinal.rename(columns={"ds": "date", "y": "duration", "anomaly":"anormal"},inplace = True)
+		final.append({tipoDato:dfFinal})
+	return final
 
 def parse():
 
@@ -39,17 +58,9 @@ def parse():
 	xls['Hora Inicio'] = xls['Hora Inicio'].str.replace('a.m.', 'AM')
 	hours = xls['Hora Inicio']
 	xls['Hora Inicio'] = pd.to_datetime(xls['Hora Inicio'], format='%d/%m/%Y %I:%M:%S %p')
+	final = filtering(xls)
 
-	# xls= xls.set_index('Hora Inicio')
-
-	df = xls[['Hora Inicio','value']]
-	df.rename(columns={"Hora Inicio": "ds", "value": "y"},inplace = True)
-
-	forecast = fit_predict_model(df)
-	anomalies = detect_anomalies(forecast)
-	# print(df)
-	# print(forecast)
-	print(anomalies)
+	print(final)
 		
 
 if __name__ == '__main__':
