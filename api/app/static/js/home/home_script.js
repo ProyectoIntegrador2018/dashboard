@@ -8,11 +8,15 @@ $(document).ready(function() {
 
 	console.log("SCRIPT WAS LOADED");
 
+	document.getElementById('fileId').addEventListener('change', submitForm);
+
+
 	//Inicializa el sidenav
 	$('.sidenav').sidenav();
 
 	//Obtiene de la API la informacion que va en el dashboard
 	getData();
+
 
 
 	//Inicializa el buscador de tipo de falla
@@ -159,7 +163,7 @@ function getData(){
 		//Ponle un listener a todos los boton 'inspect' de cada card
 		cardContainer.append(newElement);
 
-		for (i = 0; i < myJson.length; i++) { 
+		for (i = rangoSuperior - 10; i < rangoSuperior && i < myJson.length ; i++) { 
 	  		var inspectBtn = document.getElementById(myJson[i].type);
 			//console.log("inspectBnt: " + inspectBtn);
 			inspectBtn.addEventListener("click", function(){ goToFallaDetalles( this.getAttribute("id") )  });
@@ -209,12 +213,10 @@ function getData(){
 
 	   	cardContainer.append(newElement);
 
-		//Ponle un listener a todos los boton 'inspect' de cada card
-	   	for (i = 0; i < myJson.length; i++) { 
-	  		var inspectBtn = document.getElementById(myJson[i].type);
-			//console.log("inspectBnt: " + inspectBtn);
-			inspectBtn.addEventListener("click", function(){ goToFallaDetalles( this.getAttribute("id") )  });
-		}
+	  	
+	  	var inspectBtn = document.getElementById(tipo);
+		inspectBtn.addEventListener("click", function(){ goToFallaDetalles( this.getAttribute("id") )  });
+		
 
 
 	}
@@ -248,6 +250,49 @@ function getData(){
 	}
 
 
+
+   function openDialog() {
+          //document.getElementById('fileId').addEventListener('change', submitForm);
+          document.getElementById('fileId').click();
+   }
+
+  function submitForm() {
+
+          //document.getElementById('submitId').click();
+          
+          $('#loading').html("CARGANDO...");
+          cardContainer.html("");
+          //setTimeout(sendFile, 3000);
+          sendFile();
+
+  }
+
+  function sendFile(){
+
+	var data = new FormData();
+	$.each(jQuery('#fileId')[jQuery('#fileId').length-1].files, function(i, file) {
+	    data.append('file-'+i, file);
+	});
+
+	//alert(data);
+
+
+	$.ajax({
+	    url: 'http://sal.muchogas.com:8080/upload',
+	    data: data,
+	    cache: false,
+	    contentType: false,
+	    processData: false,
+	    method: 'POST',
+	    type: 'POST', // For jQuery < 1.9
+	    success: function(data){
+	        //alert(data);
+	        $('#loading').html("");
+	        getData();
+	    }
+	});
+
+  }
 
 
 
