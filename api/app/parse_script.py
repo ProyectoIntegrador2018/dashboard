@@ -45,6 +45,7 @@ def filtering(df):
 		dfFore = dfFore[['ds','anomaly']]
 
 		dfFinal = dfBase.join(dfFore.set_index('ds'), on='ds')
+		dfFinal.rename(columns={"ds": "date", "y": "duration", "anomaly":"anormal"},inplace = True)
 		final.append({tipoDato:dfFinal})
 	return final
 
