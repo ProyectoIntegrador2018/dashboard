@@ -26,7 +26,7 @@ var maxDate=0;
 
     function getData(tipoFalla){
 
-    	var endpoint = "http://localhost:8080/get-data/" + tipoFalla;
+    	var endpoint = "http://sal.muchogas.com:8080/get-data/" + tipoFalla;
     	console.log("ENDPOINT:" + endpoint);
 
     	$.ajax({
