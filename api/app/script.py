@@ -54,9 +54,9 @@ def filtering(df):
 		final.append((tipoDato,dfFinal))
 	return final
 
-def parseFile(file_url):
+def parseFile():
 
-	xls = pd.read_excel(file_url)
+	xls = pd.read_excel('archivo.xlsm')
 	xls = xls.dropna()
 	
 	xls['Hora Inicio'] = xls['Hora Inicio'].str.replace('p.m.', 'PM')
@@ -81,10 +81,10 @@ def parseFile(file_url):
 		dict_tipo = {'type':tipo, 'events':events, 'anevents':count_anormal}
 		data.append(dict_tipo)
 
-	JSON = {'data':data}
+	#JSON = {'data':data}
 	# with open('data.json', 'w') as outfile:
 	# 	json.dump(JSON, outfile)
 
-	return json.dumps(JSON)
+	return data
 	
 	
