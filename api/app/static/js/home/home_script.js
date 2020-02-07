@@ -58,8 +58,7 @@ function getData(){
 				console.log("Data that was received from the server: " + dataReceived);
 
 					
-                	myJson = dataReceived;
-                	myJson = myJson.data
+					myJson = dataReceived;
                 
 					//Aqui se ordena el json de fallas de mayor numero de eventos anomalos a menor
 					orderFallas();
