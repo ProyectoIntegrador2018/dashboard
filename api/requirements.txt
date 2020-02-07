@@ -1,4 +1,9 @@
 flask
 flask_cors
+numpy
 pymongo
 dnspython
+pandas
+fbprophet
+plotly
+holidays==0.9.12

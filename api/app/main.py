@@ -68,8 +68,8 @@ def upload_file():
         file.save(fileLocationAndName)
         #Call the script to parse the file data into a MongoDB document
         response = parseFile(fileLocationAndName)
-        x = mycol.insert_one(response[0])
-        return jsonify(response[1])
+        x = mycol.insert_one(response)
+        return jsonify(response)
     
 #Route to get all the data
 @app.route('/all-data', methods=['GET'])
