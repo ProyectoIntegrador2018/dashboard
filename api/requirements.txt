@@ -3,6 +3,7 @@ flask_cors
 numpy
 pymongo
 dnspython
+pystan
 pandas
 fbprophet
 plotly
