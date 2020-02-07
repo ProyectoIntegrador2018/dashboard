@@ -41,7 +41,7 @@ function getData(){
 
 		$.ajax({
 
-			url: "http://localhost:8080/all-data",
+			url: "http://sal.muchogas.com:8080/all-data",
 			cache : false,
 			type : "GET",
 			crossDomain: true,
@@ -272,7 +272,7 @@ function getData(){
 
 
 	$.ajax({
-	    url: 'http://localhost:8080/upload',
+	    url: 'http://sal.muchogas.com:8080/upload',
 	    data: data,
 	    cache: false,
 	    contentType: false,
