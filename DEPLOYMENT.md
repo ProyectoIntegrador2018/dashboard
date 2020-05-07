@@ -1,68 +1,41 @@
-# Monitoreo Automatico de Indicadores - Dashboard 
+# Monitoreo Automatico de Indicadores - Dashboard
 
-### Instrucciones de Instalación para sistemas operativos Ubuntu 18.04 o Debian 9 +
+### Instrucciones de Instalación en sistemas operativos MacOS
 
-### Eliminar viejas versiones de docker
-
-
+### Instalar Node js y npm
 ```
-$ sudo apt-get remove docker docker-engine docker.io containerd runc
-```
-
-### Instalar Dependencias de Docker
-
-```
-$ sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
-
+$ sudo port install nodejs
+$ sudo port install npm
 ```
 
-### Agregar llave GPG del repositorio de docker
+### Ir a la carpeta donde se encuentre el proyecto e instalar express
 ```
-$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-```
-
-### Verificar el fingerprint
-
-```
-$ sudo apt-key fingerprint 0EBFCD88
-    
-pub   rsa4096 2017-02-22 [SCEA]
-      9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
-uid           [ unknown] Docker Release (CE deb) <docker@docker.com>
-sub   rsa4096 2017-02-22 [S]
-
+$ npm init
+$ npm install express --save
 ```
 
-### Agregar el repositorio
-
+### Opcional : para tener una mejor eficiencia de pruebas se recomienda instalara nodemon
 ```
-$ sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
+$ npm install --save-dev nodemon
 ```
 
-### Instalar el engine de Docker
+
+### Para probar el servidor si se tiene instalado nodemon se tiene que usar el siguiente comando e ir al browser y entrar a la direccion localhost:3000
 
 ```
-$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose
+$ nodemon start
 ```
 
-### Consutrir los contenedores 
-se tiene que estar dentro del directorio raiz del repositorio
-
+### Instalar MongoDB
 ```
-$ sudo docker-compose build
+$ brew install mongodb
 ```
-Podra tardar un tiempo ...
 
-### Levantar los contenedores
-
+### Una vez ya tienes MongoDB en tu MacOS, lo siguiente es crear el directorio donde el servidor de MongoDB guardará la información de cada base de datos. Desde la consola del sistema ejecuta:
 ```
-$ sudo docker-compose up
+$ mkdir -p /data/db
+```
+### Luego deberás asignar los permisos necesarios para que el servidor pueda escribir en ese directorio.
+```
+$ sudo chown -R `id -un` /data/db
 ```
