@@ -19,6 +19,10 @@ app.use("/fallas", ruta1);
 var ruta2 = require("./routes/ruta2");
 app.use("/ruta2", ruta2);
 
+var detalle = require("./routes/detalle");
+app.use("/detalle", detalle);
+
+
 app.listen(3000, function () {
   console.log("Server starting");
 });
