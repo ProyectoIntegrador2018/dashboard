@@ -4,7 +4,7 @@ var path = require("path");
 var bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
 const db = require('./db.js')
-const model = require('./model.js')
+//const model = require('./model.js')
 app.set("views", path.join(__dirname + "/views"));
 app.use(express.static(path.join(__dirname, "/assets")));
 
