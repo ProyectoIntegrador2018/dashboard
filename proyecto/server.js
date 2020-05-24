@@ -3,6 +3,7 @@ var app = express();
 var path = require("path");
 var bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
+const db = require('./db.js')
 app.set("views", path.join(__dirname + "/views"));
 app.use(express.static(path.join(__dirname, "/assets")));
 
@@ -38,3 +39,21 @@ app.use("/detalle", detalle);
 app.listen(3000, function () {
   console.log("Server starting");
 });
+
+
+
+//Watch File running
+
+const { exec } = require("child_process");
+
+	exec("pm2 start watchFile.js", (error, stdout, stderr) => {
+	    if (error) {
+		console.log(`error: ${error.message}`);
+		return;
+	    }
+	    if (stderr) {
+		console.log(`stderr: ${stderr}`);
+		return;
+	    }
+	    console.log('Watchfile executed! Try adding changes!');
+	});
