@@ -4,6 +4,7 @@ var path = require("path");
 var bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
 const db = require('./db.js')
+const model = require('./model.js')
 app.set("views", path.join(__dirname + "/views"));
 app.use(express.static(path.join(__dirname, "/assets")));
 
@@ -46,7 +47,7 @@ app.listen(3000, function () {
 
 const { exec } = require("child_process");
 
-	exec("pm2 start watchFile.js", (error, stdout, stderr) => {
+	exec("pm2 start watchFile.js -f", (error, stdout, stderr) => {
 	    if (error) {
 		console.log(`error: ${error.message}`);
 		return;

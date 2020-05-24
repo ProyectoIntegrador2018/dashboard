@@ -1,0 +1,11 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+var Falla=w Schema({
+  tipo:  String,
+  hora_inicio: Date,
+  hora_fin: Date,
+  valor: Number
+}); 
+
+module.exports = mongoose.model('Fallas',mySchema)
