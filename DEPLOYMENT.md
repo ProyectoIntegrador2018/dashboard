@@ -8,6 +8,12 @@ $ sudo port install nodejs
 $ sudo port install npm
 ```
 
+### Instalar MongoDB
+```
+Seleccionar el sistema operativo y seguir las instrucciones en la siguiente liga:
+https://docs.mongodb.com/manual/administration/install-community/
+```
+
 ### Ir a la carpeta donde se encuentre el proyecto e instalar express
 ```
 $ npm init
@@ -17,6 +23,8 @@ $ npm install express --save
 ### Opcional : para tener una mejor eficiencia de pruebas se recomienda instalara nodemon
 ```
 $ npm install --save-dev nodemon
+$ npm install mongodb
+$ npm install mongoose
 ```
 
 
