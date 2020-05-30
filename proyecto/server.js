@@ -36,6 +36,9 @@ app.use("/typography", ruta6);
 var detalle = require("./routes/detalle");
 app.use("/detalle", detalle);
 
+var graficaFiltrosJSON = require("./routes/graficaFiltrosJSON");
+app.use("/graficaFiltrosJSON", graficaFiltrosJSON);
+
 
 app.listen(3000, function () {
   console.log("Server starting");

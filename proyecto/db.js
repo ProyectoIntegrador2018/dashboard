@@ -1,3 +1,4 @@
+
 const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
 const mongoose = require('mongoose');
@@ -8,9 +9,9 @@ const url = 'mongodb+srv://admin:Admin_DB_Cluster123*@dashboard-94zip.mongodb.ne
 
 const database = 'Dashboard'
 
-MongoClient.connect(url, 
+MongoClient.connect(url,
 	{useNewUrlParser: true},
-	
+
   function(error, client) {
     if (error) {
       console.log(error)
@@ -42,7 +43,7 @@ MongoClient.connect(url,
        }
        console.log(result.ops)
      })
-     
+
      db.collection('Fallas').findOne({
        valor: 15.1
      }, function(error, user) {
@@ -51,6 +52,6 @@ MongoClient.connect(url,
        }
        console.log(user)
      })
-     
-     
+
+
 	});

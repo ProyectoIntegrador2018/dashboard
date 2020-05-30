@@ -22,16 +22,16 @@ function afterSetExtremes(e) {
     });
 }
 
-$.getJSON('https://www.highcharts.com/samples/data/from-sql.php?callback=?', function (data) {
+$.getJSON('http://localhost:9000/fallas.json', function (data) {
 
     console.log(data);
     // agregar null al final de end date
-    data = [].concat(data, [[Date.UTC(2011, 9, 14, 19, 59), null, null, null, null]]);
+    //data = [].concat(data, [[Date.UTC(2011, 9, 14, 19, 59), null, null, null, null]]);
     console.log(data);
 
     Highcharts.stockChart('container', {
         chart: {
-            type: 'candlestick',
+            type: 'spline',
             zoomType: 'x'
         },
 
@@ -47,7 +47,7 @@ $.getJSON('https://www.highcharts.com/samples/data/from-sql.php?callback=?', fun
         },
 
         title: {
-            text: 'Apple Stock History from 1998 to 2011'
+            text: 'Fallas Ternium'
         },
 
         subtitle: {
@@ -80,9 +80,9 @@ $.getJSON('https://www.highcharts.com/samples/data/from-sql.php?callback=?', fun
         },
 
         xAxis: {
-            events: {
-                afterSetExtremes: afterSetExtremes
-            },
+            // events: {
+            //     afterSetExtremes: afterSetExtremes
+            // },
             minRange: 3600 * 1000 // el minimo es una hora
         },
 
