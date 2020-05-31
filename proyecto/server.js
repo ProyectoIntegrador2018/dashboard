@@ -58,15 +58,4 @@ const { exec } = require("child_process");
 	    }
 	    console.log('Watchfile executed! Try adding changes!');
 	});
-
-  var chartSchema = new Schema({
-  	_id: String,
-  	Tipo de Falla: String,
-  	Variable: String,
-  	Fecha Inicio: Date,
-  	Fecha Final: Date,
-  	Valor: Double
-  })
-
-  var Chart = mongoose.model('Chart', chartSchema);
 */

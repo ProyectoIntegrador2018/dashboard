@@ -53,18 +53,13 @@ MongoClient.connect(url,
 			]).sort({"_id.year": 1,"_id.month": 1}).toArray(function(err, result) {
     		console.log(result);
 			});
-/*
-{
-	"Tipo de Falla": "Fallas Electricas",
-	"Variable": "Fallas Electricas",
-	"Fecha Inicio": "2019/06/15 20:50:47",
-	"Fecha Final": "2019/06/15 21:05:53",
-	"Valor": 15.1,
-	"": ""
-}
-*/
+		//Query para
+		db.collection("fallasnuevas").find({"Tipo de Falla": "Preparacion Equipos"}).count(function (err, res) {
+			if (err) throw err;
+			//console.log(res);
+		});
 
-
+		})
 		//Query para encontrar todas las fallas de fallas electricas
 		db.collection("fallasnuevas").find({ "Tipo de Falla": "Fallas Electricas" }).toArray(function(err, result) {
 			if (err) throw err;
@@ -129,6 +124,10 @@ MongoClient.connect(url,
 		})
 		//Query para contar el total de fallas Servicios Operación
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Servicios Operación"}).count(function (err, res) {
+=======
+
+
+		db.collection("fallasnuevas").find({"Tipo de Falla": "Preparacion Equipos"}).count(function (err, res) {
 			if (err) throw err;
 			//console.log(res);
 		});
