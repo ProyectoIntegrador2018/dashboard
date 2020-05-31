@@ -45,16 +45,16 @@ app.listen(3000, function () {
 
 //Watch File running
 
-const { exec } = require("child_process");
-
-	exec("pm2 start watchFile.js -f", (error, stdout, stderr) => {
-	    if (error) {
-		console.log(`error: ${error.message}`);
-		return;
-	    }
-	    if (stderr) {
-		console.log(`stderr: ${stderr}`);
-		return;
-	    }
-	    console.log('Watchfile executed! Try adding changes!');
-	});
+// const { exec } = require("child_process");
+//
+// 	exec("pm2 start watchFile.js -f", (error, stdout, stderr) => {
+// 	    if (error) {
+// 		console.log(`error: ${error.message}`);
+// 		return;
+// 	    }
+// 	    if (stderr) {
+// 		console.log(`stderr: ${stderr}`);
+// 		return;
+// 	    }
+// 	    console.log('Watchfile executed! Try adding changes!');
+// 	});
