@@ -8,6 +8,7 @@ const url = 'mongodb+srv://admin:Admin_DB_Cluster123*@cluster0-k2ozl.mongodb.net
 
 const database = 'ternium'
 
+
 MongoClient.connect(url,
 	{useNewUrlParser: true},
   function(error, client) {
@@ -37,6 +38,19 @@ MongoClient.connect(url,
       		}
 				}
 			]).toArray(function(err, result) {
+    		//console.log(result);
+			});
+
+
+		db.collection("fallasnuevas").aggregate(
+			[
+				{
+					$group:
+					{
+						_id :{fallas:"$Tipo de Falla", month: { $month: "$Fecha Inicio" },year:{$year:"$Fecha Inicio"}} , count: { $sum: 1 }
+      		}
+				}
+			]).sort({"_id.year": 1,"_id.month": 1}).toArray(function(err, result) {
     		console.log(result);
 			});
 /*
