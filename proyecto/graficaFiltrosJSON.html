@@ -22,7 +22,10 @@ function afterSetExtremes(e) {
     });
 }
 
-$.getJSON('https://www.highcharts.com/samples/data/from-sql.php?callback=?', function (data) {
+db.collection('fallas').find().toArray(function(err, docs) { json = JSON.stringify(docs);});
+
+
+$.getJSON(json, function (data) {
 
     console.log(data);
     // agregar null al final de end date

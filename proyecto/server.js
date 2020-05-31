@@ -42,7 +42,7 @@ app.listen(3000, function () {
 });
 
 
-
+/*
 //Watch File running
 
 const { exec } = require("child_process");
@@ -58,3 +58,4 @@ const { exec } = require("child_process");
 	    }
 	    console.log('Watchfile executed! Try adding changes!');
 	});
+*/

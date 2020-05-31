@@ -1,4 +1,4 @@
-const fs = require('fs');
+/*const fs = require('fs');
 require('log-timestamp');
 
 const testRead = './testRead.txt';
@@ -25,3 +25,4 @@ fs.watchFile(testRead, { interval: 1000 }, (curr, prev) => {
 	    console.log('Updated! See testOutput for changes!');
 	});
   });
+*/
