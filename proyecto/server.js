@@ -96,22 +96,6 @@ app.listen(3000, function () {
   console.log("Server starting");
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
 //Watch File running
 
@@ -128,5 +112,4 @@ const { exec } = require("child_process");
 	    }
 	    console.log('Watchfile executed! Try adding changes!');
 	});
-
 */

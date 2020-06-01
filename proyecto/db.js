@@ -7,6 +7,8 @@ const ObjectID = mongodb.ObjectID
 const url = 'mongodb+srv://admin:Admin_DB_Cluster123*@cluster0-k2ozl.mongodb.net/test?retryWrites=true&w=majority'
 
 const database = 'ternium'
+const database = 'ternium'
+var resultadoAfuera = "abc"
 
 MongoClient.connect(url,
 	{useNewUrlParser: true},
@@ -19,6 +21,7 @@ MongoClient.connect(url,
     const db = client.db(database)
 		//Query para encontrar todas las fallas de preparacion equipos
 		db.colmlection("fallasnuevas").find({ "Tipo de Falla": "Preparacion Equipos" }).toArray(function(err, result) {
+		db.collection("fallasnuevas").find({ "Tipo de Falla": "Preparacion Equipos" }).toArray(function(err, result) {
 			if (err) throw err;
 			//console.log(result);
 			})
@@ -26,6 +29,7 @@ MongoClient.connect(url,
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Preparacion Equipos"}).count(function (err, res) {
 			if (err) throw err;
 			console.log("Hay fallas de preparacion de equipos "+res);
+			//console.log("Hay fallas de preparacion de equipos "+res);
 		});
 
 		db.collection("fallasnuevas").aggregate(
@@ -52,6 +56,45 @@ MongoClient.connect(url,
 			]).sort({"_id.year": 1,"_id.month": 1}).toArray(function(err, result) {
     		console.log(result);
 			});
+		//Query para
+		db.collection("fallasnuevas").find({"Tipo de Falla": "Preparacion Equipos"}).count(function (err, res) {
+			if (err) throw err;
+			//console.log(res);
+		});
+
+		var myPromise = () => {
+         return new Promise((resolve, reject) => {
+								//Query para encontrar todas las fallas de preparacion equipos
+								db.collection("fallasnuevas").find({ "Tipo de Falla": "Preparacion Equipos" }).toArray(function(err, resultado) {
+									err
+										? reject(err)
+										: resolve(resultado)
+									//console.log(result);
+								//Query para
+								db.collection("fallasnuevas").find({"Tipo de Falla": "Preparacion Equipos"}).count(function (err, res) {
+									err
+										? reject(err)
+										: resolve(resultado)
+									//console.log(res);
+								});
+
+							})
+						});
+					};
+
+					//Step 2: async promise handler
+		       var callMyPromise = async () => {
+
+		          var result = await (myPromise());
+		          //console.log(result)
+		          return result;
+		       };
+
+					 callMyPromise().then(function(result) {
+          //client.close();
+          resultadoAfuera = JSON.stringify(result)
+					console.log(resultadoAfuera)
+       });
 
 		//Query para encontrar todas las fallas de fallas electricas
 		db.collection("fallasnuevas").find({ "Tipo de Falla": "Fallas Electricas" }).toArray(function(err, result) {
@@ -117,6 +160,7 @@ MongoClient.connect(url,
 		})
 		//Query para contar el total de fallas Servicios Operación
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Servicios Operación"}).count(function (err, res) {
+		db.collection("fallasnuevas").find({"Tipo de Falla": "Preparacion Equipos"}).count(function (err, res) {
 			if (err) throw err;
 			//console.log(res);
 		});
