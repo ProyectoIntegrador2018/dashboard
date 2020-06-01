@@ -106,6 +106,24 @@ app.use("/servicios-centrales", detalle6);
 var detalle7 = require("./routes/detalle6");
 app.use("/botarse-molino", detalle7);
 
+var detalle8 = require("./routes/detalle7");
+app.use("/botarse-motor", detalle8);
+
+var detalle9 = require("./routes/detalle8");
+app.use("/alineacion", detalle9);
+
+var detalle10 = require("./routes/detalle9");
+app.use("/ajuste", detalle10);
+
+var detalle11 = require("./routes/detalle10");
+app.use("/rodillos-defectuosos", detalle11);
+
+var detalle12 = require("./routes/detalle10");
+app.use("/servicios-operacion", detalle12);
+
+var detalle13 = require("./routes/detalle11");
+app.use("/coordinacion-personal", detalle13);
+
 var graficas = require("./routes/graficaFiltrosJSON");
 app.use("/graficas",graficas)
 
