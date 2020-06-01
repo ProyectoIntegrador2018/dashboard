@@ -7,8 +7,8 @@ const ObjectID = mongodb.ObjectID
 const url = 'mongodb+srv://admin:Admin_DB_Cluster123*@cluster0-k2ozl.mongodb.net/test?retryWrites=true&w=majority'
 
 const database = 'ternium'
+const database = 'ternium'
 var resultadoAfuera = "abc"
-
 
 MongoClient.connect(url,
 	{useNewUrlParser: true},
@@ -20,6 +20,7 @@ MongoClient.connect(url,
 
     const db = client.db(database)
 		//Query para encontrar todas las fallas de preparacion equipos
+		db.colmlection("fallasnuevas").find({ "Tipo de Falla": "Preparacion Equipos" }).toArray(function(err, result) {
 		db.collection("fallasnuevas").find({ "Tipo de Falla": "Preparacion Equipos" }).toArray(function(err, result) {
 			if (err) throw err;
 			//console.log(result);
@@ -27,6 +28,7 @@ MongoClient.connect(url,
 		//Query para contar el total de fallas de preparacion equipos
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Preparacion Equipos"}).count(function (err, res) {
 			if (err) throw err;
+			console.log("Hay fallas de preparacion de equipos "+res);
 			//console.log("Hay fallas de preparacion de equipos "+res);
 		});
 
@@ -94,7 +96,6 @@ MongoClient.connect(url,
 					console.log(resultadoAfuera)
        });
 
-
 		//Query para encontrar todas las fallas de fallas electricas
 		db.collection("fallasnuevas").find({ "Tipo de Falla": "Fallas Electricas" }).toArray(function(err, result) {
 			if (err) throw err;
@@ -159,9 +160,6 @@ MongoClient.connect(url,
 		})
 		//Query para contar el total de fallas Servicios Operación
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Servicios Operación"}).count(function (err, res) {
-=======
-
-
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Preparacion Equipos"}).count(function (err, res) {
 			if (err) throw err;
 			//console.log(res);
