@@ -86,7 +86,43 @@ var ruta6 = require("./routes/typography");
 app.use("/typography", ruta6);
 
 var detalle = require("./routes/detalle");
-app.use("/detalle", detalle);
+app.use("/preparacion-equipos", detalle);
+
+var detalle2 = require("./routes/detalle2");
+app.use("/fallas-mecanicas", detalle2);
+
+var detalle3 = require("./routes/detalle3");
+app.use("/fallas-electricas", detalle3);
+
+var detalle4 = require("./routes/detalle4");
+app.use("/fallas-de-operacion", detalle4);
+
+var detalle5 = require("./routes/detalle5");
+app.use("/edificios", detalle5);
+
+var detalle6 = require("./routes/detalle5");
+app.use("/servicios-centrales", detalle6);
+
+var detalle7 = require("./routes/detalle6");
+app.use("/botarse-molino", detalle7);
+
+var detalle8 = require("./routes/detalle7");
+app.use("/botarse-motor", detalle8);
+
+var detalle9 = require("./routes/detalle8");
+app.use("/alineacion", detalle9);
+
+var detalle10 = require("./routes/detalle9");
+app.use("/ajuste", detalle10);
+
+var detalle11 = require("./routes/detalle10");
+app.use("/rodillos-defectuosos", detalle11);
+
+var detalle12 = require("./routes/detalle10");
+app.use("/servicios-operacion", detalle12);
+
+var detalle13 = require("./routes/detalle11");
+app.use("/coordinacion-personal", detalle13);
 
 var graficas = require("./routes/graficaFiltrosJSON");
 app.use("/graficas",graficas)
