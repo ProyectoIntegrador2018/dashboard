@@ -7,7 +7,6 @@ const ObjectID = mongodb.ObjectID
 const url = 'mongodb+srv://admin:Admin_DB_Cluster123*@cluster0-k2ozl.mongodb.net/test?retryWrites=true&w=majority'
 
 const database = 'ternium'
-const database = 'ternium'
 var resultadoAfuera = "abc"
 
 MongoClient.connect(url,
