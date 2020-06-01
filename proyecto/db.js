@@ -8,7 +8,6 @@ const url = 'mongodb+srv://admin:Admin_DB_Cluster123*@cluster0-k2ozl.mongodb.net
 
 const database = 'ternium'
 
-
 MongoClient.connect(url,
 	{useNewUrlParser: true},
   function(error, client) {
@@ -19,14 +18,14 @@ MongoClient.connect(url,
 
     const db = client.db(database)
 		//Query para encontrar todas las fallas de preparacion equipos
-		db.collection("fallasnuevas").find({ "Tipo de Falla": "Preparacion Equipos" }).toArray(function(err, result) {
+		db.colmlection("fallasnuevas").find({ "Tipo de Falla": "Preparacion Equipos" }).toArray(function(err, result) {
 			if (err) throw err;
 			//console.log(result);
 			})
 		//Query para contar el total de fallas de preparacion equipos
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Preparacion Equipos"}).count(function (err, res) {
 			if (err) throw err;
-			//console.log("Hay fallas de preparacion de equipos "+res);
+			console.log("Hay fallas de preparacion de equipos "+res);
 		});
 
 		db.collection("fallasnuevas").aggregate(
@@ -53,17 +52,6 @@ MongoClient.connect(url,
 			]).sort({"_id.year": 1,"_id.month": 1}).toArray(function(err, result) {
     		console.log(result);
 			});
-/*
-{
-	"Tipo de Falla": "Fallas Electricas",
-	"Variable": "Fallas Electricas",
-	"Fecha Inicio": "2019/06/15 20:50:47",
-	"Fecha Final": "2019/06/15 21:05:53",
-	"Valor": 15.1,
-	"": ""
-}
-*/
-
 
 		//Query para encontrar todas las fallas de fallas electricas
 		db.collection("fallasnuevas").find({ "Tipo de Falla": "Fallas Electricas" }).toArray(function(err, result) {
