@@ -22,54 +22,10 @@ function afterSetExtremes(e) {
     });
 }
 
-//$.getJSON('https://dashboard-tenium.herokuapp.com/fallas.json', function (data) {
+$.getJSON('https://dashboard-tenium.herokuapp.com/fallas.json', function (data) {
 
     // agregar null al final de end date
-    //data = [].concat(data, [[Date.UTC(2011, 9, 14, 19, 59), null, null, null, null]]);
-    data = [
-      [
-        20190615210553,
-        15.1
-      ],
-      [
-        20190615220408,
-        19.25
-      ],
-      [
-        20190619140534,
-        2.2
-      ],
-      [
-        20190718135603,
-        4.85
-      ],
-      [
-        20190718140415,
-        2.2
-      ],
-      [
-        20190724192928,
-        13.58
-      ],
-      [
-        20190726110538,
-        7.35
-      ],
-      [
-        20190810214241,
-        15.97
-      ],
-      [
-        20190811103101,
-        2.42
-      ],
-      [
-        20190815031859,
-        14.12
-      ]
-    ]
-
-    console.log(data);
+    data = [].concat(data, [[Date.UTC(2011, 9, 14, 19, 59), null, null, null, null]]);
 
     Highcharts.stockChart('container', {
         chart: {
@@ -122,9 +78,9 @@ function afterSetExtremes(e) {
         },
 
         xAxis: {
-            // events: {
-            //     afterSetExtremes: afterSetExtremes
-            // },
+            events: {
+                 afterSetExtremes: afterSetExtremes
+            },
             minRange: 3600 * 1000 // el minimo es una hora
         },
 
@@ -139,7 +95,7 @@ function afterSetExtremes(e) {
             }
         }]
     });
-//});
+});
 
 
 </script>
