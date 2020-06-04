@@ -8,19 +8,19 @@
 /**
  Esta funcion vuelve a cargar los datos dependiendo del minimo y maximo selecionado
  */
-function afterSetExtremes(e) {
-
-    var chart = Highcharts.charts[0];
-
-    chart.showLoading('Loading data from server...');
-
-    $.getJSON('https://www.highcharts.com/samples/data/from-sql.php?start=' + Math.round(e.min) +
-            '&end=' + Math.round(e.max) + '&callback=?', function (data) {
-
-        chart.series[0].setData(data);
-        chart.hideLoading();
-    });
-}
+// function afterSetExtremes(e) {
+//
+//     var chart = Highcharts.charts[0];
+//
+//     chart.showLoading('Loading data from server...');
+//
+//     $.getJSON('https://www.highcharts.com/samples/data/from-sql.php?start=' + Math.round(e.min) +
+//             '&end=' + Math.round(e.max) + '&callback=?', function (data) {
+//
+//         chart.series[0].setData(data);
+//         chart.hideLoading();
+//     });
+// }
 
 data = [
   [
@@ -118,9 +118,9 @@ Highcharts.stockChart('container', {
     },
 
     xAxis: {
-        events: {
-           afterSetExtremes: afterSetExtremes
-         },
+        // events: {
+        //    afterSetExtremes: afterSetExtremes
+        //  },
         minRange: 3600 * 1000 // el minimo es una hora
     },
 
