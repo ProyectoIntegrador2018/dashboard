@@ -52,7 +52,7 @@ MongoClient.connect(url,
       		}
 				}
 			]).sort({"_id.year": 1,"_id.month": 1}).toArray(function(err, result) {
-    		console.log(result);
+    		//console.log(result);
 			});
 		//Query para
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Preparacion Equipos"}).count(function (err, res) {
@@ -60,6 +60,7 @@ MongoClient.connect(url,
 			//console.log(res);
 		});
 
+		/*
 		var myPromise = () => {
          return new Promise((resolve, reject) => {
 								//Query para encontrar todas las fallas de preparacion equipos
@@ -93,13 +94,13 @@ MongoClient.connect(url,
           resultadoAfuera = JSON.stringify(result)
 					console.log(resultadoAfuera)
        });
-
+			 */
 
 		//Query para encontrar todas las fallas de fallas electricas
 		db.collection("fallasnuevas").find({ "Tipo de Falla": "Fallas Electricas" }).toArray(function(err, result) {
 			if (err) throw err;
 			//console.log(result);
-		})
+		});
 		//Query para contar el total de fallas electricas
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Fallas Electricas"}).count(function (err, res) {
 			if (err) throw err;
@@ -111,7 +112,7 @@ MongoClient.connect(url,
 		db.collection("fallasnuevas").find({ "Tipo de Falla": "Fallas Mecanicas" }).toArray(function(err, result) {
 			if (err) throw err;
 			//console.log(result);
-		})
+		});
 		//Query para contar el total de fallas mecanicas
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Fallas Mecanicas"}).count(function (err, res) {
 			if (err) throw err;
@@ -122,7 +123,7 @@ MongoClient.connect(url,
 		db.collection("fallasnuevas").find({ "Tipo de Falla": "Ing Sistemas" }).toArray(function(err, result) {
 			if (err) throw err;
 			//console.log(result);
-		})
+		});
 		//Query para contar el total de fallas ing sistemas
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Ing Sistemas"}).count(function (err, res) {
 			if (err) throw err;
@@ -134,7 +135,7 @@ MongoClient.connect(url,
 		db.collection("fallasnuevas").find({ "Tipo de Falla": "Servicios Centrales" }).toArray(function(err, result) {
 			if (err) throw err;
 			//console.log(result);
-		})
+		});
 		//Query para contar el total de fallas de servicios centrales
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Servicios Centrales"}).count(function (err, res) {
 			if (err) throw err;
@@ -145,7 +146,7 @@ MongoClient.connect(url,
 		db.collection("fallasnuevas").find({ "Tipo de Falla": "Propias de Operación" }).toArray(function(err, result) {
 			if (err) throw err;
 			//console.log(result);
-		})
+		});
 		//Query para contar el total de fallas de Propias de Operación
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Propias de Operación"}).count(function (err, res) {
 			if (err) throw err;
@@ -156,11 +157,12 @@ MongoClient.connect(url,
 		db.collection("fallasnuevas").find({ "Tipo de Falla": "Servicios Operación" }).toArray(function(err, result) {
 			if (err) throw err;
 			//console.log(result);
-		})
+		});
 		//Query para contar el total de fallas Servicios Operación
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Servicios Operación"}).count(function (err, res) {
-=======
-
+			if (err) throw err;
+			//console.log(res);
+			});
 
 		db.collection("fallasnuevas").find({"Tipo de Falla": "Preparacion Equipos"}).count(function (err, res) {
 			if (err) throw err;
