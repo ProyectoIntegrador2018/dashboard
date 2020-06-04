@@ -33,44 +33,44 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="active">
-            <a href='http://localhost:3000/dashboard'>
+            <a href='https://dashboard-tenium.herokuapp.com/dashboard'>
               <i class="nc-icon nc-bank"></i>
               <p>Dashboard</p>
             </a>
           </li>
           <li>
-            <a href='http://localhost:3000/fallas'>
+            <a href='https://dashboard-tenium.herokuapp.com/fallas'>
               <i class="nc-icon nc-settings"></i>
               <p>Fallas</p>
             </a>
           </li>
           <!-- Aqui esta comentado futuras ventanas en caso de ser necesarias
           <li>
-            <a href="http://localhost:3000/tablelist">
+            <a href="https://dashboard-tenium.herokuapp.com/tablelist">
               <i class="nc-icon nc-tile-56"></i>
               <p>Table List</p>
             </a>
           </li>
           <li>
-            <a href="http://localhost:3000/notifications">
+            <a href="https://dashboard-tenium.herokuapp.com/notifications">
               <i class="nc-icon nc-bell-55"></i>
               <p>Notifications</p>
             </a>
           </li>
           <li>
-            <a href="http://localhost:3000/users">
+            <a href="https://dashboard-tenium.herokuapp.com/users">
               <i class="nc-icon nc-single-02"></i>
               <p>User Profile</p>
             </a>
           </li>
           <li>
-            <a href="http://localhost:3000/icons">
+            <a href="https://dashboard-tenium.herokuapp.com/icons">
               <i class="nc-icon nc-diamond"></i>
               <p>Icons</p>
             </a>
           </li>
           <li>
-            <a href="http://localhost:3000/typography">
+            <a href="https://dashboard-tenium.herokuapp.com/typography">
               <i class="nc-icon nc-caps-small"></i>
               <p>Typography</p>
             </a>
@@ -309,12 +309,12 @@
         text: ''
       },
       xAxis: {
-        categories: ['2016', '2017', '2018', '2019', '2020']
+        categories: ['Fallas Electricas', 'Fallas Mecanicas', 'Ing Sistemas', 'Preparacion Equipos', 'Propias de Operación', 'Servicios Centrales', 'Servicios Operación']
       },
       yAxis: {
         min: 0,
         title: {
-          text: 'Mil'
+          text: 'Minutos'
         },
         stackLabels: {
           enabled: true,
@@ -328,6 +328,7 @@
         }
       },
       legend: {
+        enabled: false,
         align: 'right',
         x: -30,
         verticalAlign: 'top',
@@ -352,14 +353,81 @@
         }
       },
       series: [{
+        name: 'Botarse Molino',
+        color: '#FFBE7D',
+        data: [33.85]
+      }, {
+        name: 'Botarse Motor',
+        color: '#59A14F',
+        data: [35.99]
+      }, {
         name: 'Fallas Electricas',
-        data: [5, 3, 4, 7, 2]
+        color: '#E15759',
+        data: [36.51]
+      }, {
+        name: 'Alineacion',
+        color: '#A0CBE8',
+        data: [0,46.87]
+      }, {
+        name: 'Alojamiento',
+        color: '#F28E2B',
+        data: [0,10.48]
       }, {
         name: 'Fallas Mecanicas',
-        data: [2, 2, 3, 2, 1]
+        color: '#FF9D9A',
+        data: [0,49.55]
+      }, {
+        name: 'Ing Sistemas',
+        color: '#79706E',
+        data: [0,0,22.82]
+      }, {
+        name: 'Proyectos Inversion',
+        color: '#D37295',
+        data: [0,0,8.63]
+      }, {
+        name: 'Sistemas',
+        color: '#9D7660',
+        data: [0,0,37]
+      }, {
+        name: 'Ajuste',
+        color: '#4E79A7',
+        data: [0,0,0,6.41]
+      }, {
+        name: 'Preparacion Equipos',
+        color: '#BAB0AC',
+        data: [0,0,0,12]
+      }, {
+        name: 'Coordinacion Personal',
+        color: '#8CD17D',
+        data: [0,0,0,0,6.07]
+      }, {
+        name: 'Fallas de operacion',
+        color: '#86BCB6',
+        data: [0,0,0,0,6.42]
+      }, {
+        name: 'Edificios',
+        color: '#B6992B',
+        data: [0,0,0,0,0,6.33]
+      }, {
+        name: 'Falla Grua',
+        color: '#499894',
+        data: [0,0,0,0,0,5.37]
       }, {
         name: 'Servicios Centrales',
-        data: [3, 4, 4, 2, 5]
+        color: '#B07AA1',
+        data: [0,0,0,0,0,6.23]
+      }, {
+        name: 'Espera de rodillos',
+        color: '#F1CE63',
+        data: [0,0,0,0,0,0,42.15]
+      }, {
+        name: 'Rodillos Defectuosos',
+        color: '#FABFD2',
+        data: [0,0,0,0,0,0,17.79]
+      }, {
+        name: 'Servicios Operación',
+        color: '#D4A6C8',
+        data: [0,0,0,0,0,0,21.85]
       }]
     });
 
@@ -375,7 +443,7 @@
       text: ''
     },
     xAxis: {
-      categories: ['2014','2015', '2016', '2017', '2018', '2019', '2020', '2021'],
+      categories: ['Junio 2019','Julio 2019', 'Agosto 2019', 'Septiembre 2019', 'Octubre 2019', 'Noviembre 2019', 'Diciembre 2019', 'Enero 2020', 'Febrero 2020', 'Marzo 2020', 'Abril 2020', 'Mayo 2020', 'Junio 2020'],
       tickmarkPlacement: 'on',
       title: {
         enabled: false
@@ -383,11 +451,11 @@
     },
     yAxis: {
       title: {
-        text: 'mil'
+        text: 'Fallas'
       },
       labels: {
         formatter: function () {
-          return this.value / 1000;
+          return this.value;
         }
       }
     },
@@ -408,19 +476,32 @@
     },
     series: [{
       name: 'Fallas Electricas',
-      data: [5268,3634,1402,947,809,635,502]
+      data: [56,25,29,40,13,26,33,20,39,50,49,101,52],
+      color: '#4A79A7'
     }, {
       name: 'Fallas Mecanicas',
-      data: [1766, 767, 221, 133, 111, 107, 106]
+      data: [28,46,47,62,36,31,43,21,62,67,39,90,20],
+      color: '#F28E2B'
     }, {
       name: 'Ing Sistemas',
-      data: [628, 729, 547, 408, 276, 203, 163]
-    }, {
-      name: 'Servicios Centrales',
-      data: [1201, 818, 339, 156, 54, 31, 18]
+      data: [0,0,12,2,1,0,50,116,18,2,0,0,0],
+      color: '#E15759'
     }, {
       name: 'Preparacion Equipos',
-      data: [46, 30, 13, 6, 2, 2, 2]
+      data: [101,119,101,124,60,72,90,71,112,88,87,57,49],
+      color: '#76B7C2'
+    }, {
+      name: 'Propias de Operación',
+      data: [79,69,92,105,30,112,123,35,39,16,9,22,14],
+      color: '#59A14F'
+    }, {
+      name: 'Servicios Centrales',
+      data: [0,4,8,8,0,14,12,2,22,6,0,20,6],
+      color: '#EDC948'
+    }, {
+      name: 'Servicios Operación',
+      data: [4,2,4,4,4,6,10,2,2,10,14,24,6],
+      color: '#B07AA1'
     }]
     });
     //Tree chart
@@ -443,57 +524,33 @@
         }
       }],
       data: [{
-        id: 'A',
         name: 'Fallas Electricas',
-        color: "#EC2500"
+        value: 101,
+        color: '#4A79A7'
       }, {
-        id: 'B',
         name: 'Fallas Mecanicas',
-        color: "#ECE100"
+        value: 90,
+        color: '#F28E2B'
       }, {
-        id: 'O',
-        name: 'Ing Sistemas',
-        color: '#EC9800'
+        name: 'Preparacion Equipos',
+        value: 57,
+        color: '#76B7C2'
       }, {
-        name: 'Botarse Motor',
-        parent: 'A',
-        value: 5
+        name: 'Propias de Operación',
+        value: 22,
+        color: '#59A14F'
       }, {
-        name: 'Botarse Molino',
-        parent: 'A',
-        value: 3
-      }, {
-        name: 'Falla Electrica',
-        parent: 'A',
-        value: 4
-      }, {
-        name: 'Alineacion',
-        parent: 'B',
-        value: 4
-      }, {
-        name: 'Alojamiento',
-        parent: 'B',
-        value: 10
-      }, {
-        name: 'Falla Mecanicas',
-        parent: 'B',
-        value: 1
-      }, {
-        name: 'Ing Sistemas',
-        parent: 'O',
-        value: 1
-      }, {
-        name: 'Sistemas',
-        parent: 'O',
-        value: 3
-      }, {
-        name: 'Proyectos Inversion',
-        parent: 'O',
-        value: 3
+        name: 'Servicios Operación',
+        value: 24,
+        color: '#B07AA1'
       }, {
         name: 'Servicios Centrales',
-        value: 2,
-        color: '#9EDE00'
+        value: 20,
+        color: '#EDC948'
+      }, {
+        name: 'Ing Sistemas',
+        value: 4,
+        color: '#E15759'
       }]
     }],
     title: {

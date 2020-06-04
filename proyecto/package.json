@@ -2,8 +2,11 @@
   "name": "paper-dashboard-2",
   "description": "Bootstrap 4 Paper Design",
   "scripts": {
-    "start": "node ./server.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines":{
+    "node": "12.6.0"
   },
   "version": "2.0.1",
   "homepage": "http://creative-tim.com/product/paper-dashboard-2",
@@ -20,14 +23,17 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "config.json": "0.0.4",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongodb": "^3.5.8",
     "mongoose": "^5.9.16",
     "multer": "^1.4.2",
+    "request": "^2.88.2",
     "xls-to-json-lc": "^0.3.4",
     "xlsx-to-json-lc": "^0.5.0"
   },
-  "main": "db.js",
+  "main": "server.js",
   "directories": {
     "doc": "docs"
   },
