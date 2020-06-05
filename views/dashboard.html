@@ -20,6 +20,8 @@
   <link href="../demo/demo.css" rel="stylesheet" />
 </head>
 
+
+
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
@@ -279,7 +281,7 @@
   <script src="../js/core/bootstrap.min.js"></script>
   <script src="../js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!--script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
   <script src="../js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
@@ -288,9 +290,38 @@
   <script src="../js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../demo/demo.js"></script>
   <script>
+  function getData() {
+    return new Promise((resolve, reject) =>{
+      $.ajax({
+        contentType: "application/json",
+
+        success: function(result) {
+          const json = result.body
+          console.log(result.body)
+          return resolve(json)
+        },
+
+        error: function(error){
+          console.log("Error")
+          return reject(error)
+        }
+      });
+    });
+  }
+
+
+  async function loadData() {
+
+    getData()
+    .then()
+
+  }
+
     $(document).ready(function() {
       // Javascript method's body can be found in assets-for-demo/js/demo.js
+      loadData();
       demo.initChartsPages();
+
     });
   </script>
   <!-- Highcharts Dependencies -->
