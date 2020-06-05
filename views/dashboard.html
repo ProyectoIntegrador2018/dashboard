@@ -290,22 +290,29 @@
   <script src="../js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../demo/demo.js"></script>
   <script>
+  var colores = ["#4A79A7","#F28E2B","#E15759","#76B7C2","#59A14F","#EDC948","#B07AA1"]
+
   function getData() {
     return new Promise((resolve, reject) =>{
       $.ajax({
         contentType: "application/json",
+        url: "/readDataFromDB",
 
         success: function(result) {
-          const json = result.body
-          console.log(result.body)
-          return resolve(json)
+          //const json = result.body
+          //console.log(result)
+          resolve(result)
         },
 
         error: function(error){
           console.log("Error")
-          return reject(error)
+          reject(error)
         }
       });
+    }).then(function(result){
+        console.log("Termino el promise")
+        //console.log(result)
+        return result
     });
   }
 
@@ -313,13 +320,55 @@
   async function loadData() {
 
     getData()
-    .then()
+    .then(function(result,error){
+      //result.sort()
+      //console.log(result)
 
+      var dict = {
+        "falla1": {name:"falla1", valor:[], color:"jjdfij"}
+      }
+
+      for (var i = 0; i < result.length; i++){
+        if (!(result[i]._id.fallas in dict)){
+          dict[result[i]._id.fallas] = {name:result[i]._id.fallas, data:[], color:colores[Object.keys(dict).length-1]}
+        }
+        dict[result[i]._id.fallas].data.push(result[i].count)
+      }
+
+      dict["Servicios Centrales"].data.push(20)
+      dict["Servicios Centrales"].data.push(20)
+      dict["Servicios Centrales"].data.push(20)
+
+      dict["Ing Sistemas"].data.push(20)
+      dict["Ing Sistemas"].data.push(20)
+      dict["Ing Sistemas"].data.push(20)
+      dict["Ing Sistemas"].data.push(20)
+
+      series = []
+
+      delete dict["falla1"]
+
+      for (var key in dict){
+        series.push(dict[key])
+      }
+      console.log(series)
+      return series
+
+    }, function(error){
+       console.log(error)
+    });
+
+  }
+
+  async function loadDataDB() {
+    console.log("LoadDataDB")
+    await getData()
+    console.log("Finished Fetching")
   }
 
     $(document).ready(function() {
       // Javascript method's body can be found in assets-for-demo/js/demo.js
-      loadData();
+      loadDataDB();
       demo.initChartsPages();
 
     });
@@ -505,35 +554,7 @@
         }
       }
     },
-    series: [{
-      name: 'Fallas Electricas',
-      data: [56,25,29,40,13,26,33,20,39,50,49,101,52],
-      color: '#4A79A7'
-    }, {
-      name: 'Fallas Mecanicas',
-      data: [28,46,47,62,36,31,43,21,62,67,39,90,20],
-      color: '#F28E2B'
-    }, {
-      name: 'Ing Sistemas',
-      data: [0,0,12,2,1,0,50,116,18,2,0,0,0],
-      color: '#E15759'
-    }, {
-      name: 'Preparacion Equipos',
-      data: [101,119,101,124,60,72,90,71,112,88,87,57,49],
-      color: '#76B7C2'
-    }, {
-      name: 'Propias de Operación',
-      data: [79,69,92,105,30,112,123,35,39,16,9,22,14],
-      color: '#59A14F'
-    }, {
-      name: 'Servicios Centrales',
-      data: [0,4,8,8,0,14,12,2,22,6,0,20,6],
-      color: '#EDC948'
-    }, {
-      name: 'Servicios Operación',
-      data: [4,2,4,4,4,6,10,2,2,10,14,24,6],
-      color: '#B07AA1'
-    }]
+    series: loadData()
     });
     //Tree chart
     Highcharts.chart('tree', {

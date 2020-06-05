@@ -43,15 +43,7 @@ app.get('/readDataFromDB', function (reqUp,resUp){
       });
     }
     //console.log(data.length);
-    resUp.body = data
-    console.log(resUp.body)
-    //resUp.json.sort()
-    //var arrayfal = []
-    //for (var i = 0; i < data.length; i++){
-      //arrayfal.push(resUp.json[i].count)
-      //arrayfal.push({year:resUp.json[i]._id.year,month:resUp.json[i]._id.month,valor:resUp.json[i].count})
-    //}
-    //resUp.body = arrayfal)
+    return resUp.json(data)
     //console.log(resUp.json)
     //resUp.sendFile("dashboard.html", { root: "views" });
     //console.log(resUp.json[0]._id.month)
