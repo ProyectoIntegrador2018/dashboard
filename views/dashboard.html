@@ -17,7 +17,7 @@
   <link href="../css/bootstrap.min.css" rel="stylesheet" />
   <link href="../css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../demo/demo.css" rel="stylesheet" />
+  <link href="../assets/demo/demo.css" rel="stylesheet" />
 </head>
 
 
@@ -35,44 +35,44 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="active">
-            <a href='https://dashboard-tenium.herokuapp.com/dashboard'>
+            <a href='http://localhost:3000/dashboard'>
               <i class="nc-icon nc-bank"></i>
               <p>Dashboard</p>
             </a>
           </li>
           <li>
-            <a href='https://dashboard-tenium.herokuapp.com/fallas'>
+            <a href='http://localhost:3000/fallas'>
               <i class="nc-icon nc-settings"></i>
               <p>Fallas</p>
             </a>
           </li>
           <!-- Aqui esta comentado futuras ventanas en caso de ser necesarias
           <li>
-            <a href="https://dashboard-tenium.herokuapp.com/tablelist">
+            <a href="http://localhost:3000/tablelist">
               <i class="nc-icon nc-tile-56"></i>
               <p>Table List</p>
             </a>
           </li>
           <li>
-            <a href="https://dashboard-tenium.herokuapp.com/notifications">
+            <a href="http://localhost:3000/notifications">
               <i class="nc-icon nc-bell-55"></i>
               <p>Notifications</p>
             </a>
           </li>
           <li>
-            <a href="https://dashboard-tenium.herokuapp.com/users">
+            <a href="http://localhost:3000/users">
               <i class="nc-icon nc-single-02"></i>
               <p>User Profile</p>
             </a>
           </li>
           <li>
-            <a href="https://dashboard-tenium.herokuapp.com/icons">
+            <a href="http://localhost:3000/icons">
               <i class="nc-icon nc-diamond"></i>
               <p>Icons</p>
             </a>
           </li>
           <li>
-            <a href="https://dashboard-tenium.herokuapp.com/typography">
+            <a href="http://localhost:3000/typography">
               <i class="nc-icon nc-caps-small"></i>
               <p>Typography</p>
             </a>
@@ -291,6 +291,7 @@
   <script src="../demo/demo.js"></script>
   <script>
   var colores = ["#4A79A7","#F28E2B","#E15759","#76B7C2","#59A14F","#EDC948","#B07AA1"]
+  var series = []
 
   function getData() {
     return new Promise((resolve, reject) =>{
@@ -319,8 +320,12 @@
 
   async function loadData() {
 
-    getData()
-    .then(function(result,error){
+    return series
+  }
+
+  async function loadDataDB(cb) {
+    console.log("LoadDataDB")
+    getData().then(function(result,error){
       //result.sort()
       //console.log(result)
 
@@ -344,34 +349,22 @@
       dict["Ing Sistemas"].data.push(20)
       dict["Ing Sistemas"].data.push(20)
 
-      series = []
-
       delete dict["falla1"]
 
       for (var key in dict){
         series.push(dict[key])
       }
       console.log(series)
-      return series
+      return cb(null, series)
+
 
     }, function(error){
-       console.log(error)
+       cb(error)
     });
 
-  }
-
-  async function loadDataDB() {
-    console.log("LoadDataDB")
-    await getData()
     console.log("Finished Fetching")
   }
 
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets-for-demo/js/demo.js
-      loadDataDB();
-      demo.initChartsPages();
-
-    });
   </script>
   <!-- Highcharts Dependencies -->
   <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -380,6 +373,13 @@
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   <!-- Highcharts Code -->
   <script>
+
+  $(document).ready(function() {
+    // Javascript method's body can be found in assets-for-demo/js/demo.js
+    loadDataDB(function(error,data){
+      if(error){
+        console.log("Error")
+      }
     //Stacked Bar Chart
     Highcharts.chart('stackedBar', {
       chart: {
@@ -554,7 +554,7 @@
         }
       }
     },
-    series: loadData()
+    series: data
     });
     //Tree chart
     Highcharts.chart('tree', {
@@ -609,7 +609,9 @@
       text: ''
     }
   });
-
+  demo.initChartsPages();
+  });
+  });
 
 
   </script>
