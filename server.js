@@ -58,7 +58,7 @@ app.get('/readDataFromDBVars', function (reqUp,resUp){
   Fallasmodel.aggregate([{
     $group:
     {
-      _id :{fallas:"$Tipo de Falla", month: { $month: "$Fecha Inicio" },year:{$year:"$Fecha Inicio"}, variable:"Variable"}, count: { $sum: 1 }
+      _id :{fallas:"$Tipo de Falla", month: { $month: "$Fecha Inicio" },year:{$year:"$Fecha Inicio"}, variable:"$Variable"}, count: { $sum: 1 }
     }
   },
   {$sort:{"_id.year":1,"_id.month":1, "count":1}}], function(err, data) { //Data represents the data fetched from the DB
