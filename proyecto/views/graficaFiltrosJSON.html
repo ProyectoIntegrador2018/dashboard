@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script>
+/**
+ Esta funcion vuelve a cargar los datos dependiendo del minimo y maximo selecionado
+ */
+function afterSetExtremes(e) {
+
+    var chart = Highcharts.charts[0];
+
+    chart.showLoading('Loading data from server...');
+
+    $.getJSON('https://www.highcharts.com/samples/data/from-sql.php?start=' + Math.round(e.min) +
+            '&end=' + Math.round(e.max) + '&callback=?', function (data) {
+
+        chart.series[0].setData(data);
+        chart.hideLoading();
+    });
+}
+
+//$.getJSON('https://dashboard-tenium.herokuapp.com/fallas.json', function (data) {
+
+    // agregar null al final de end date
+    //data = [].concat(data, [[Date.UTC(2011, 9, 14, 19, 59), null, null, null, null]]);
+    data = [
+      [
+        20190615210553,
+        15.1
+      ],
+      [
+        20190615220408,
+        19.25
+      ],
+      [
+        20190619140534,
+        2.2
+      ],
+      [
+        20190718135603,
+        4.85
+      ],
+      [
+        20190718140415,
+        2.2
+      ],
+      [
+        20190724192928,
+        13.58
+      ],
+      [
+        20190726110538,
+        7.35
+      ],
+      [
+        20190810214241,
+        15.97
+      ],
+      [
+        20190811103101,
+        2.42
+      ],
+      [
+        20190815031859,
+        14.12
+      ]
+    ]
+
+    console.log(data);
+
+    Highcharts.stockChart('container', {
+        chart: {
+            type: 'spline',
+            zoomType: 'x'
+        },
+
+        navigator: {
+            adaptToUpdatedData: false,
+            series: {
+                data: data
+            }
+        },
+
+        scrollbar: {
+            liveRedraw: false
+        },
+
+        title: {
+            text: 'Fallas Ternium'
+        },
+
+        subtitle: {
+            text: ''
+        },
+
+        rangeSelector: {
+            buttons: [{
+                type: 'hour',
+                count: 1,
+                text: '1h'
+            }, {
+                type: 'day',
+                count: 1,
+                text: '1d'
+            }, {
+                type: 'month',
+                count: 1,
+                text: '1m'
+            }, {
+                type: 'year',
+                count: 1,
+                text: '1y'
+            }, {
+                type: 'all',
+                text: 'All'
+            }],
+            inputEnabled: true, // input para filtro es true
+            selected: 4 // al principio esta all para que muestre toda la info
+        },
+
+        xAxis: {
+            // events: {
+            //     afterSetExtremes: afterSetExtremes
+            // },
+            minRange: 3600 * 1000 // el minimo es una hora
+        },
+
+        yAxis: {
+            floor: 0
+        },
+
+        series: [{
+            data: data,
+            dataGrouping: {
+                enabled: false
+            }
+        }]
+    });
+//});
+
+
+</script>
+<body>
+<div id="container" style="height: 400px; min-width: 310px"></div>
+
+</body>
+</html>
