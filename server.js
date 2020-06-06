@@ -33,19 +33,16 @@ Fallasmodel = mongoose.model('fallasnuevas', Fallas)
 app.get('/readDataFromDB', function (reqUp,resUp){
   regresa = []
 
-  Fallasmodel.aggregate([{
-    $group:
-    {
-      _id :{fallas:"$Tipo de Falla", month: { $month: "$Fecha Inicio" },year:{$year:"$Fecha Inicio"}}, count: { $sum: 1 }
-    }
-  }], function(err, data) { //Data represents the data fetched from the DB
+  Fallasmodel.aggregate([{$group:{_id :{fallas:"$Tipo de Falla", month: { $month: "$Fecha Inicio" },year:{$year:"$Fecha Inicio"}}, count: { $sum: 1 }}},
+                          {$sort:{"_id.year":1,"_id.month":1, "count":1}}
+
+    ], function(err, data) { //Data represents the data fetched from the DB
     if (err) {
       return resUp.send({
         status: err
       });
     }
-    console.log(data);
-    regresa.push(data)
+    return resUp.json(data)
     //return resUp.json(data)
     //console.log(resUp.json)
     //resUp.sendFile("dashboard.html", { root: "views" });
@@ -53,27 +50,34 @@ app.get('/readDataFromDB', function (reqUp,resUp){
     //console.log(resUp.json[0]._id,resUp.json[0].count)
   });
 
+});
+
+app.get('/readDataFromDBVars', function (reqUp,resUp){
+  regresa = []
+
   Fallasmodel.aggregate([{
     $group:
     {
-      _id :{fallas:"$Tipo de Falla", month: { $month: "$Fecha Inicio" },year:{$year:"$Fecha Inicio"}, variable:"$Variable"}, count: { $sum: 1 }
+      _id :{fallas:"$Tipo de Falla", month: { $month: "$Fecha Inicio" },year:{$year:"$Fecha Inicio"}, variable:"Variable"}, count: { $sum: 1 }
     }
-  }], function(err, data) { //Data represents the data fetched from the DB
+  },
+  {$sort:{"_id.year":1,"_id.month":1, "count":1}}], function(err, data) { //Data represents the data fetched from the DB
     if (err) {
       return resUp.send({
         status: err
       });
     }
-    console.log(data);
-    regresa.push(data);
 
-    return resUp.json(regresa)
+    return resUp.json(data)
     //console.log(resUp.json)
     //resUp.sendFile("dashboard.html", { root: "views" });
     //console.log(resUp.json[0]._id.month)
     //console.log(resUp.json[0]._id,resUp.json[0].count)
   });
+
+
 });
+
 
 
 app.set("views", path.join(__dirname + "/views"));

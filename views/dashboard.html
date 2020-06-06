@@ -230,7 +230,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="card ">
               <div class="card-header ">
                 <h5 class="card-title">Cantidad de Fallas por Área</h5>
@@ -242,7 +242,9 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+        </div>
+        <div class="row">
+          <div class="col-md-12">
             <div class="card card-chart">
               <div class="card-header">
                 <h5 class="card-title">Tiempo de Demora Promedio por Área</h5>
@@ -294,6 +296,7 @@
 
   function getData() {
     return new Promise((resolve, reject) =>{
+      var acum = []
       $.ajax({
         contentType: "application/json",
         url: "/readDataFromDB",
@@ -301,61 +304,123 @@
         success: function(result) {
           //const json = result.body
           //console.log(result)
-          resolve(result)
+          acum.push(result)
         },
-
         error: function(error){
           console.log("Error")
           reject(error)
         }
-      });
-    }).then(function(result){
-        console.log("Termino el promise")
-        //console.log(result)
-        return result
+      }).then(function(result){
+        $.ajax({
+          contentType: "application/json",
+          url: "/readDataFromDBVars",
+
+          success: function(resultado) {
+            //const json = result.body
+            acum.push(resultado)
+            resolve(acum)
+          },
+          error: function(error){
+            console.log("Error")
+            reject(error)
+          }
+        });
     });
+  }).then(function(result){
+      console.log("Termino el promise")
+      return result
+  });
   }
 
   async function loadDataDB(cb) {
-    var seriesPrincipal = []
+    var series = []
     var seriesTree = []
+    var seriesBars = []
 
     console.log("LoadDataDB")
     getData().then(function(result,error){
       //result.sort()
       //console.log(result)
-
-      var dictPrincipal = {
-        "falla1": {name:"falla1", valor:[], color:"jjdfij"}
+      var dict = {
       }
 
       var dictTree = {
-        "falla1": {name:"falla1", valor:[], color:"jjdfij"}
       }
 
-      console.log(result)
+      var dictBars = {
+      }
+      console.log("resultado[0]:")
+      console.log(result[0])
+      console.log("resultado[1]")
+      console.log(result[1])
 
       for (var i = 0; i < result[0].length; i++){
-        if (!(result[0][i]._id.fallas in dictPrincipal)){
-          dictPrincipal[result[0][i]._id.fallas] = {name:result[0][i]._id.fallas, data:[], color:colores[Object.keys(dictPrincipal).length-1]}
+        if (!(result[0][i]._id.fallas in dict)){
+          dict[result[0][i]._id.fallas] = {name:result[0][i]._id.fallas, data:[], color:colores[Object.keys(dict).length]}
         }
-        dictPrincipal[result[0][i]._id.fallas].data.push(result[0][i].count)
+        dict[result[0][i]._id.fallas].data.push(result[0][i].count)
       }
 
-      delete dictPrincipal["falla1"]
-
-      for (var key in dictPrincipal){
-        series.push(dictPrincipal[key])
-
+      for (var i = 0; i < result[0].length; i++){
+        if (!(result[0][i]._id.fallas in dictTree)){
+          dictTree[result[0][i]._id.fallas] = {name:result[0][i]._id.fallas, value:0, color:colores[Object.keys(dictTree).length]}
+        }
+        dictTree[result[0][i]._id.fallas].value += result[0][i].count
       }
 
+      for(var i = 0; i<result[1].length; i++){
+        if(!(result[1][i]._id.fallas in dictBars)){
+          dictBars[result[1][i]._id.fallas] = {name:result[1][i]._id.fallas, variable:[{nameVariable:result[1][i]._id.variable, data:result[1][i].count}], color:colores[Object.keys(dictBars).length]}
+        }
+        var cambio = false
+        for(var j = 0; j<dictBars[result[1][i]._id.fallas].variable.length; j++){
+          if(dictBars[result[1][i]._id.fallas].variable[j].nameVariable == result[1][i]._id.variable){
+            dictBars[result[1][i]._id.fallas].variable[j].data += result[1][i].count
+            cambio = true
+            break;
+          }
+        }
+        if(!cambio){
+          dictBars[result[1][i]._id.fallas].variable.push({nameVariable:result[1][i]._id.variable, data:result[1][i].count})
+        }
+      }
+      console.log(dictBars)
 
+      dict["Servicios Centrales"].data.push(20)
+      dict["Servicios Centrales"].data.push(20)
+      dict["Servicios Centrales"].data.push(20)
 
-      console.log(seriesPrincipal)
-      console.log(seriesTree)
-      return cb(null, seriesPrincipal, seriesBlock)
+      dict["Ing Sistemas"].data.push(20)
+      dict["Ing Sistemas"].data.push(20)
+      dict["Ing Sistemas"].data.push(20)
+      dict["Ing Sistemas"].data.push(20)
 
+      for (var key in dict){
+        series.push(dict[key])
+      }
+      for (var key in dictTree){
+        seriesTree.push(dictTree[key])
+      }
 
+      var cont = 0
+      var tempArray = []
+
+      for(var key in dictBars){
+        for(var i = 0; i<dictBars[key].variable.length; i++){
+          tempArray = [];
+          for(var j = 0; j<cont; j++){
+            tempArray.push(0)
+          }
+          tempArray.push(dictBars[key].variable[i].data)
+          seriesBars.push({name:dictBars[key].name, color:dictBars[key].color, data: tempArray})
+        }
+        console.log("Ahhhh")
+
+        cont += 1
+      }
+
+      console.log(seriesBars)
+      return cb(null, series,seriesTree,seriesBars)
     }, function(error){
        cb(error)
     });
@@ -374,7 +439,7 @@
 
   $(document).ready(function() {
     // Javascript method's body can be found in assets-for-demo/js/demo.js
-    loadDataDB(function(error,data, seriesBlock){
+    loadDataDB(function(error,series,seriesTree,seriesBars){
       if(error){
         console.log("Error")
       }
@@ -430,7 +495,7 @@
           }
         }
       },
-      series: seriesBlock
+      series: seriesBars
     });
 
     // Stacked Area Chart
@@ -476,7 +541,7 @@
         }
       }
     },
-    series: data
+    series: series
     });
     //Tree chart
     Highcharts.chart('tree', {
@@ -497,35 +562,7 @@
           }
         }
       }],
-      data: [{
-        name: 'Fallas Electricas',
-        value: 101,
-        color: '#4A79A7'
-      }, {
-        name: 'Fallas Mecanicas',
-        value: 90,
-        color: '#F28E2B'
-      }, {
-        name: 'Preparacion Equipos',
-        value: 57,
-        color: '#76B7C2'
-      }, {
-        name: 'Propias de Operación',
-        value: 22,
-        color: '#59A14F'
-      }, {
-        name: 'Servicios Operación',
-        value: 24,
-        color: '#B07AA1'
-      }, {
-        name: 'Servicios Centrales',
-        value: 20,
-        color: '#EDC948'
-      }, {
-        name: 'Ing Sistemas',
-        value: 4,
-        color: '#E15759'
-      }]
+      data: seriesTree
     }],
     title: {
       text: ''
