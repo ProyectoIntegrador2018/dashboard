@@ -39,7 +39,7 @@ https://dashboard-tenium.herokuapp.com/dashboard
 
 * [Github repo](https://github.com/ProyectoIntegrador2018/dashboard)
 * [Backlog](https://github.com/ProyectoIntegrador2018/dashboard/projects/1)
-* [Documentation](https://drive.com)
+* [Documentation](https://drive.google.com/drive/folders/1SSBXJN80fpIKWPhrakaUeZEwP412qnNI?usp=sharing)
 
 ## Stack Tecnologico
 
