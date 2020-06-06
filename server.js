@@ -31,6 +31,8 @@ const Fallas = new Schema ({
 Fallasmodel = mongoose.model('fallasnuevas', Fallas)
 
 app.get('/readDataFromDB', function (reqUp,resUp){
+  regresa = []
+
   Fallasmodel.aggregate([{
     $group:
     {
@@ -42,13 +44,36 @@ app.get('/readDataFromDB', function (reqUp,resUp){
         status: err
       });
     }
-    //console.log(data.length);
-    return resUp.json(data)
+    console.log(data);
+    regresa.push(data)
+    //return resUp.json(data)
     //console.log(resUp.json)
     //resUp.sendFile("dashboard.html", { root: "views" });
     //console.log(resUp.json[0]._id.month)
     //console.log(resUp.json[0]._id,resUp.json[0].count)
-})});
+  });
+
+  Fallasmodel.aggregate([{
+    $group:
+    {
+      _id :{fallas:"$Tipo de Falla", month: { $month: "$Fecha Inicio" },year:{$year:"$Fecha Inicio"}, variable:"$Variable"}, count: { $sum: 1 }
+    }
+  }], function(err, data) { //Data represents the data fetched from the DB
+    if (err) {
+      return resUp.send({
+        status: err
+      });
+    }
+    console.log(data);
+    regresa.push(data);
+
+    return resUp.json(regresa)
+    //console.log(resUp.json)
+    //resUp.sendFile("dashboard.html", { root: "views" });
+    //console.log(resUp.json[0]._id.month)
+    //console.log(resUp.json[0]._id,resUp.json[0].count)
+  });
+});
 
 
 app.set("views", path.join(__dirname + "/views"));
