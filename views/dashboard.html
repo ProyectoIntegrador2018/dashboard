@@ -46,7 +46,7 @@
               <p>Fallas</p>
             </a>
           </li>
-          <!-- Aqui esta comentado futuras ventanas en caso de ser necesarias
+          <!-- Aqui esta comentado futuras tabs en caso de ser necesarias
           <li>
             <a href="https://dashboard-tenium.herokuapp.com/tablelist">
               <i class="nc-icon nc-tile-56"></i>
@@ -59,24 +59,7 @@
               <p>Notifications</p>
             </a>
           </li>
-          <li>
-            <a href="https://dashboard-tenium.herokuapp.com/users">
-              <i class="nc-icon nc-single-02"></i>
-              <p>User Profile</p>
-            </a>
-          </li>
-          <li>
-            <a href="https://dashboard-tenium.herokuapp.com/icons">
-              <i class="nc-icon nc-diamond"></i>
-              <p>Icons</p>
-            </a>
-          </li>
-          <li>
-            <a href="https://dashboard-tenium.herokuapp.com/typography">
-              <i class="nc-icon nc-caps-small"></i>
-              <p>Typography</p>
-            </a>
-          </li> -->
+          <li> -->
         </ul>
       </div>
     </div>
@@ -292,15 +275,24 @@
   <script src="../js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../demo/demo.js"></script>
   <script>
+  //Se tiene un array de colores que se irán asignando conforme vayan llegando las fallas de la base de datos
   var colores = ["#4A79A7","#F28E2B","#E15759","#76B7C2","#59A14F","#EDC948","#B07AA1"]
 
+  //Para asegurarse que la información se encuentra lista para cargar a las gráficas se usó un promise el cual
+  //espera que se haga el fetch de la base de datos correctamente antes de accesar a la información y usarla
   function getData() {
     return new Promise((resolve, reject) =>{
       var acum = []
       $.ajax({
+        //Se busca la información regresada por la query de la base de datos en la ruta descrita abajo
         contentType: "application/json",
         url: "/readDataFromDB",
 
+        //En caso de accesar a la información correctamente, esta se añade a un array
+        //La estructura del objeto que se usará para llenar las gráficas será un array
+        //en donde cada posición representa una query hecha en server.js. Si se quieren
+        //agregar más entradas (queries) se deben añadir más entradas ajax con el .then
+        //para confirmar y asegurarse que dichas entradas se encuentran en orden en el array
         success: function(result) {
           //const json = result.body
           //console.log(result)
@@ -332,15 +324,20 @@
   });
   }
 
+  //En esta función se encuentra toda la lógica del manejo de la información de la base de datos para
+  //ajustar esa información a un formato aceptado por highcharts
   async function loadDataDB(cb) {
     var series = []
     var seriesTree = []
     var seriesBars = []
 
     console.log("LoadDataDB")
+    //Se espera que la información esté lista del fetch
     getData().then(function(result,error){
       //result.sort()
       //console.log(result)
+
+      //Se tiene un diccionario para cada gráfica en la pantalla de resumen
       var dict = {
       }
 
@@ -349,11 +346,18 @@
 
       var dictBars = {
       }
+
+      //Se puede apreciar un ejemplo de la información dentro del array de queries
       console.log("resultado[0]:")
       console.log(result[0])
       console.log("resultado[1]")
       console.log(result[1])
 
+      //La estructura para los highcharts es un arreglo de series (dependiendo del tipo de gráfica), en general se tiene un arreglo de diccionarios
+      //donde se tienen 3 atributos, name:string, data:array de enteros, color:string.
+      //Para la primera gráfica (es mejor correr el proyecto para ver las gráficas y entender los datos) se tiene la siguiente lógica:
+      //Si la falla no se encuentra en el diccionario, se añade manualmente con la información de la query. (Nótese que esta primera query
+      //agrupa los datos por tipo de falla excluyendo el campo variable y los ordena por año, mes y nombre)
       for (var i = 0; i < result[0].length; i++){
         if (!(result[0][i]._id.fallas in dict)){
           dict[result[0][i]._id.fallas] = {name:result[0][i]._id.fallas, data:[], color:colores[Object.keys(dict).length]}
@@ -361,6 +365,8 @@
         dict[result[0][i]._id.fallas].data.push(result[0][i].count)
       }
 
+      //Para la segunda gráfica, se tiene la misma estructura que la primera, sólo que se tiene un acumulado de las fallas para seguir
+      //el input esperado de la gráfica de tree
       for (var i = 0; i < result[0].length; i++){
         if (!(result[0][i]._id.fallas in dictTree)){
           dictTree[result[0][i]._id.fallas] = {name:result[0][i]._id.fallas, value:0, color:colores[Object.keys(dictTree).length]}
@@ -368,12 +374,18 @@
         dictTree[result[0][i]._id.fallas].value += result[0][i].count
       }
 
+      //Esta es sin duda la gráfica más compleja de programar. Para la gráfica de barras es necesario dividir cada variable por su falla.
+      //Ej. {var1, falla1}, {var2, falla2}, {var3,falla1} => {falla1:[var1,var3]},{falla2:[var2]}
+      //Sabemos que la query no agrupa las variables por falla, por lo tanto debemos de hacer eso manualmente. Además, como pueden existir
+      //múltiples entradas de la misma variable porque se dividen por mes, de tiene que mantener un acumulado de esa varibale en esa falla en específico.
       for(var i = 0; i<result[1].length; i++){
+        //Si no se ha encontrado esta falla, se agrega al diccionario
         if(!(result[1][i]._id.fallas in dictBars)){
           dictBars[result[1][i]._id.fallas] = {name:result[1][i]._id.fallas, variable:[{nameVariable:result[1][i]._id.variable, data:result[1][i].count}], color:colores[Object.keys(dictBars).length]}
         }
         var cambio = false
         for(var j = 0; j<dictBars[result[1][i]._id.fallas].variable.length; j++){
+          //Si ya se encontró la variable, se acumula su valor con el ya existente
           if(dictBars[result[1][i]._id.fallas].variable[j].nameVariable == result[1][i]._id.variable){
             dictBars[result[1][i]._id.fallas].variable[j].data += result[1][i].count
             cambio = true
@@ -381,11 +393,17 @@
           }
         }
         if(!cambio){
+          //Si no se ha añadido la variable se añade manualmente
           dictBars[result[1][i]._id.fallas].variable.push({nameVariable:result[1][i]._id.variable, data:result[1][i].count})
         }
       }
       console.log(dictBars)
 
+      //Existe un problema grave para la primera gráfica, el cual es que dado que no todos los arreglos tienen la misma
+      //cantidad de entradas, la información a partir de cierto punto se mezcla y se pierde el sentido de la gráfica. Por ahora
+      //no hemos implementado la lógica para identificar el mes para el cual la falla no tiene informaicón, pero lo correcto sería
+      //añadir en todos esos meses en los que no se tiene información para un tipo de falla en específico, se agrega un 0 para no
+      //alterar la información de la gráfica
       dict["Servicios Centrales"].data.push(20)
       dict["Servicios Centrales"].data.push(20)
       dict["Servicios Centrales"].data.push(20)
@@ -405,6 +423,13 @@
       var cont = 0
       var tempArray = []
 
+      //La estructura de las gráficas de barras es la siguiente:
+      //Para cada falla, se tiene un arreglo de variables. Para identificar una falla de otra, se tiene un 0 en el array de data por
+      //cada columna antes de la columna actual. En otras palabras, cada falla va a tener 0s apendeados dependiendo de su índice.
+      //Ej: falla1:[1,2,3], falla2[4,5,6], falla3:[7,8,9]
+      //series[tempArray[1],tempArray[2],tempArray[3],
+      //       tempArray[0,4],tempArray[0,5],tempArray[0,6],
+      //       tempArray[0,0,7],tempArray[0,0,8],tempArray[0,0,9]]
       for(var key in dictBars){
         for(var i = 0; i<dictBars[key].variable.length; i++){
           tempArray = [];
@@ -414,12 +439,12 @@
           tempArray.push(dictBars[key].variable[i].data)
           seriesBars.push({name:dictBars[key].name, color:dictBars[key].color, data: tempArray})
         }
-        console.log("Ahhhh")
 
         cont += 1
       }
 
       console.log(seriesBars)
+      //Se regresa un callback para corregir bug de disponibilidad de los datos antes de cargar gráficas
       return cb(null, series,seriesTree,seriesBars)
     }, function(error){
        cb(error)
@@ -438,7 +463,8 @@
   <script>
 
   $(document).ready(function() {
-    // Javascript method's body can be found in assets-for-demo/js/demo.js
+    //Se llena toda la información necesaria para Highcharts. Si se quiere modificar las categorías, se podría crear manualmente un arreglo
+    //en donde para cada tipo de falla diferente que exista (o por mes, o alguna otra), se agrega una nueva categoría, por ahora está harcodeado.
     loadDataDB(function(error,series,seriesTree,seriesBars){
       if(error){
         console.log("Error")

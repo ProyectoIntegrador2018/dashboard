@@ -6,6 +6,7 @@ var contador = 1;
 
 console.log(`Watching for file changes on ${testRead}`);
 
+//Al momento de correr el watchFile.js se buscan cambios en el archivo objetivo (testWatchFileRead.txt)
 fs.watchFile(testRead, { interval: 1000 }, (curr, prev) => {
   //fs.appendFile('testOutput.txt', contador.toString()+'\n', function (err) {
     //if (err) throw err;
@@ -13,7 +14,8 @@ fs.watchFile(testRead, { interval: 1000 }, (curr, prev) => {
     //contador++;
     const { exec } = require("child_process");
 
-	exec("cp testRead.txt testOutput.txt", (error, stdout, stderr) => {
+//Se ejecuta el comando de bash de copiar la información de un archivo a otro, todo esto corriendo en el background gracias a pm2
+	exec("cp testWatchFileRead.txt testWatchFileOutput.txt", (error, stdout, stderr) => {
 	    if (error) {
 		console.log(`error: ${error.message}`);
 		return;

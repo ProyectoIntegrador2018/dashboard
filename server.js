@@ -19,6 +19,7 @@ db.once('open', function() {
   console.log("we're connected!");
 });
 
+//Se cuenta con un schema el cual representa la estructura de la base de datos en un objeto
 const Fallas = new Schema ({
         _id: { type: String, requried: true },
         tipo: { type: String, required: true },
@@ -30,24 +31,20 @@ const Fallas = new Schema ({
 
 Fallasmodel = mongoose.model('fallasnuevas', Fallas)
 
+//Se especifica una ruta distinta para cada query
 app.get('/readDataFromDB', function (reqUp,resUp){
   regresa = []
-
+  //Query para obtener el tipo de falla, el mes y año de inicio de la falla y un contador de la cantidad de entradas en total para dicho mes y cierta falla
   Fallasmodel.aggregate([{$group:{_id :{fallas:"$Tipo de Falla", month: { $month: "$Fecha Inicio" },year:{$year:"$Fecha Inicio"}}, count: { $sum: 1 }}},
-                          {$sort:{"_id.year":1,"_id.month":1, "count":1}}
+                          {$sort:{"_id.year":1,"_id.month":1, "count":1}} //Se sortea el resultado por año, luego mes y luego suma total de entradas
 
-    ], function(err, data) { //Data represents the data fetched from the DB
+    ], function(err, data) { //Data representa la información recopilada de la base de datos de la query
     if (err) {
       return resUp.send({
         status: err
       });
     }
     return resUp.json(data)
-    //return resUp.json(data)
-    //console.log(resUp.json)
-    //resUp.sendFile("dashboard.html", { root: "views" });
-    //console.log(resUp.json[0]._id.month)
-    //console.log(resUp.json[0]._id,resUp.json[0].count)
   });
 
 });
@@ -55,13 +52,15 @@ app.get('/readDataFromDB', function (reqUp,resUp){
 app.get('/readDataFromDBVars', function (reqUp,resUp){
   regresa = []
 
+  //Query para obtener el tipo de falla, el mes y año de inicio de la falla, un contador de la cantidad de entradas en total para dicho mes y cierta falla
+  // y la variable del tipo de falla
   Fallasmodel.aggregate([{
     $group:
     {
       _id :{fallas:"$Tipo de Falla", month: { $month: "$Fecha Inicio" },year:{$year:"$Fecha Inicio"}, variable:"$Variable"}, count: { $sum: 1 }
     }
   },
-  {$sort:{"_id.year":1,"_id.month":1, "count":1}}], function(err, data) { //Data represents the data fetched from the DB
+  {$sort:{"_id.year":1,"_id.month":1, "count":1}}], function(err, data) { //Data representa la información recopilada de la base de datos de la query
     if (err) {
       return resUp.send({
         status: err
@@ -69,10 +68,6 @@ app.get('/readDataFromDBVars', function (reqUp,resUp){
     }
 
     return resUp.json(data)
-    //console.log(resUp.json)
-    //resUp.sendFile("dashboard.html", { root: "views" });
-    //console.log(resUp.json[0]._id.month)
-    //console.log(resUp.json[0]._id,resUp.json[0].count)
   });
 
 
@@ -155,6 +150,15 @@ app.listen(process.env.PORT || 3000, function () {
   console.log("Server starting");
 });
 
+//Con el siguiente código se tendría funcionando al watchfile para actualizar automáticamente la base de datos con base a un archivo
+//Por ahora no funciona correctamente integrado al server y tiene otro archivo especificado para testing. Para integrarse correctamente
+//los pasos que se deben de seguir son:
+//1. Aseguraese que pm2 funcionará montado en heroku
+//2. Confirgurar la ruta del archivo a observar
+//3. Cambiar el comando en el archivo watchfile.js para que en lugar de copiar un archivo de una dirección a otra, copie la información
+//   de un archivo a la base de datos con una query.
+//4. Ver la forma de terminar el proceso del watchfile cuando se cierre la página para que no se corra por siempre. (Por ahora cada vez
+//   que se corra, se terminará el proceso existente y se creará uno nuevo, pero todavía no está la lógica para terminarlo al salir de la pág.)
 /*
 //Watch File running
 
