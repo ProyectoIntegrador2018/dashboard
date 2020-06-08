@@ -90,6 +90,12 @@ $ npm install mongoose
 $ npm install --save-dev nodemon
 ```
 
+### Opcional : Si se desea instalar y usar el archivo watchfile usar el comando:
+
+```
+$ npm install pm2 -g
+```
+
 ### Para probar el servidor si se tiene instalado nodemon se tiene que usar el siguiente comando e ir al browser y entrar a la direccion localhost:3000
 
 ```
