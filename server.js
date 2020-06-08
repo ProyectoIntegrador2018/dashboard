@@ -82,6 +82,9 @@ app.get("/", function (req, res, next) {
   res.sendFile("dashboard.html", { root: "views" });
 });
 
+var ruta0 = require("./routes/dashboard");
+app.use("/dashboard", ruta0);
+
 var ruta1 = require("./routes/fallas");
 app.use("/fallas", ruta1);
 
