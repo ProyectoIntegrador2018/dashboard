@@ -8,12 +8,14 @@ var cors = require('cors');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
+//url de la base de dagos en mongodb
 const url = 'mongodb+srv://admin:Admin_DB_Cluster123*@cluster0-k2ozl.mongodb.net/ternium?retryWrites=true&w=majority'
 
+//coneccion a la url de mongo
 mongoose.connect(url)
+//variable de la base de datos
 const db = mongoose.connection;
-
+//funcion para mostrar que se conecto a la base de datos con exito.
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log("we're connected!");
@@ -78,9 +80,13 @@ app.get('/readDataFromDBVars', function (reqUp,resUp){
 app.set("views", path.join(__dirname + "/views"));
 app.use(express.static(path.join(__dirname, "/assets")));
 
+//Hace dashboard.html la ventana inicial del sitio web.
+
 app.get("/", function (req, res, next) {
   res.sendFile("dashboard.html", { root: "views" });
 });
+
+//funciones para ir a la direccion indicada
 
 var ruta0 = require("./routes/dashboard");
 app.use("/dashboard", ruta0);
