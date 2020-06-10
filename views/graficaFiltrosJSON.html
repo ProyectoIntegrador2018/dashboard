@@ -4,9 +4,14 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+
+<body>
+<div id="container" style="height: 400px; min-width: 310px"></div>
+</body>
+
 <script>
 /**
- Esta funcion vuelve a cargar los datos dependiendo del minimo y maximo selecionado
+ Esta funcion vuelve a cargar los datos dependiendo del minimo y maximo establecido por el usuario
  */
 // function afterSetExtremes(e) {
 //
@@ -22,7 +27,8 @@
 //     });
 // }
 
-data = [
+//estos son datos dummy que proporciono Ternium
+dataTernium = [
   [
     20190615210553,
     15.1
@@ -65,8 +71,8 @@ data = [
   ]
 ]
 
-console.log(data);
-
+//Esta es la configuracion basica para una grafica de Highcharts con filtros.
+//Se puede filtrar por dia, mes año. El usuario tambien pued establecer un rango de fechas.
 Highcharts.stockChart('container', {
     chart: {
         type: 'spline',
@@ -76,7 +82,7 @@ Highcharts.stockChart('container', {
     navigator: {
         adaptToUpdatedData: false,
         series: {
-            data: data
+            data: dataTernium
         }
     },
 
@@ -118,6 +124,7 @@ Highcharts.stockChart('container', {
     },
 
     xAxis: {
+        //esta configuracion esta comentada ya que se tiene que desarrollar la funcion de afterSetExtremes() con la conexion a los datos de Ternium
         // events: {
         //    afterSetExtremes: afterSetExtremes
         //  },
@@ -129,12 +136,15 @@ Highcharts.stockChart('container', {
     },
 
     series: [{
-        data: data,
+        data: dataTernium,
         dataGrouping: {
             enabled: false
         }
     }]
 });
+
+//Esta es la misma funcion que la previa, pero esta recibe los datos por medio de un json que se obtiene de un request.
+//Esta funcion si manda a llamar a afterSetExtremes para que ajuste los datos dependiendo del rango que establecio el usuario.
 
 // $.getJSON('https://dashboard-tenium.herokuapp.com/fallas.json', function (data) {
 //
@@ -211,10 +221,5 @@ Highcharts.stockChart('container', {
 //     });
 // });
 
-
 </script>
-<body>
-<div id="container" style="height: 400px; min-width: 310px"></div>
-
-</body>
 </html>
